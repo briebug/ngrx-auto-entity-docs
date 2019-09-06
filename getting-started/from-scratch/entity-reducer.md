@@ -4,14 +4,14 @@ description: Define the initial entity state
 
 # Entity State
 
-In our example we are building the state for the `Customer` entity. As such, we've created a new **customer.state.ts** file located at src/app/state/state/customer.state.ts.
+In our example we are building the state for the `Customer` entity. As such, we've created a new **customer.state.ts** file located at src/app/state/customer.state.ts.
 
 {% code-tabs %}
 {% code-tabs-item title="customer.state.ts" %}
 ```typescript
 import { Action } from '@ngrx/store';
 import { buildState, IEntityState } from '@briebug/ngrx-auto-entity';
-import { Customer } from 'models/customer.model';
+import { Customer } from '../models/customer.model';
 
 export const { initialState, selectors, facade: CustomerFacadeBase } = buildState(Customer);
 

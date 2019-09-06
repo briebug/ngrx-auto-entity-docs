@@ -6,14 +6,14 @@ Finally, in order for NgRx Auto-Entity to find the entity service you just creat
 {% code-tabs-item title="app.module.ts" %}
 ```typescript
 import { NgModule } from '@angular/core';
-import { StateModule } from 'state';
-import { Customer } from 'models';
-import { EntityService } from 'services';
+import { StateModule } from './state';
+import { Customer } from './models';
+import { EntityService } from './services';
 
 @NgModule({
   imports: [BrowserModule, StateModule],
   providers: [
-    { provide: Custmer, useClass: EntityService }
+    { provide: Customer, useClass: EntityService }
   ]
 })
 export class AppModule {}

@@ -10,7 +10,7 @@ Now that we have the standard initial implementation for NgRX and Auto-Entity in
 {% code-tabs-item title="app.state.ts" %}
 ```typescript
 // ... imports ...
-import { Customer } from 'models';
+import { Customer } from '../models';
 import { customerReducer } from './customer.state.ts'
 
 export interface IAppState {

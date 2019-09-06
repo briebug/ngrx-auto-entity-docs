@@ -10,14 +10,15 @@ Now that we have implemented our root state interface & reducer map, we need to 
 {% code-tabs-item title="state.module.ts" %}
 ```typescript
 import { NgModule } from '@angular/core';
+import { NgrxAutoEntityModule } from '@briebug/ngrx-auto-entity';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
-import { appMetaReducers, appReducer } from './app.reducer';
+import { appMetaReducers, appReducer } from './app.state';
 
 @NgModule({
   imports: [
-    StoreModule.forRoot(appReducer, { metaReducers: appMetaReducers })
+    StoreModule.forRoot(appReducer, { metaReducers: appMetaReducers }),
     EffectsModule.forRoot([]),
     NgrxAutoEntityModule.forRoot()
   ]

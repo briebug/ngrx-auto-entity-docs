@@ -21,9 +21,6 @@ export type AppState = IAppState;
 export const appReducer: ActionReducerMap<AppState> = {
   // todo: add each entity reducer
 };
-
-export const appMetaReducers: Array<MetaReducer<AppState>> = 
-  !environment.production ? [storeFreeze] : [];
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
@@ -32,5 +29,9 @@ export const appMetaReducers: Array<MetaReducer<AppState>> =
 In versions of NgRx Auto-Entity prior to v0.2, the developer was also responsible for including the `autoEntityMetaReducer` in the app meta reducers collection. As of version 0.2 of the library, import of the `NgrxAutoEntityModule` with the `.forRoot()` call is all that is necessary to include the meta reducer.
 
 If you are upgrading from a version prior to v0.2, you should remove the `autoEntityMetaReducer` from your app meta reducers!
+{% endhint %}
+
+{% hint style="info" %}
+With NgRx 8, runtime checks have replaced the need to use the storeFreeze meta reducer. As such, a standard state configuration no longer requires any meta reducers. 
 {% endhint %}
 

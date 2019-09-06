@@ -12,7 +12,7 @@ description: Things we Need
 import { IEntityState } from '@briebug/ngrx-auto-entity';
 import { ActionReducerMap } from '@ngrx/store';
 
-import { Customer, Order } from 'models';
+import { Customer, Order } from '../models';
 import { customerReducer } from './customer.state';
 import { orderReducer } from './order.state';
 
@@ -36,8 +36,8 @@ import { buildState, IEntityState } from '@briebug/ngrx-auto-entity';
 import { createReducer } from '@ngrx/store';
 import { Customer } from 'models';
 
-export { initialState, facade: CustomerFacadeBase } = buildState(Customer);
-export const customerReducer = createReducer(initialState);
+export const { initialState: customerInitialState, facade: CustomerFacadeBase } = buildState(Customer);
+export const customerReducer = createReducer(customerInitialState);
 ```
 {% endcode-tabs-item %}
 
@@ -47,7 +47,7 @@ import { buildState, IEntityState } from '@briebug/ngrx-auto-entity';
 import { createReducer } from '@ngrx/store';
 import { Order } from 'models';
 
-export { initialState, facade: OrderFacadeBase } = buildState(Order);
+export const { initialState: orderInitialState, facade: OrderFacadeBase } = buildState(Order);
 export const orderReducer = createReducer(initialState);
 ```
 {% endcode-tabs-item %}
