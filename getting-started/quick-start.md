@@ -148,7 +148,7 @@ Finally, now that you have your models and have provided your entity services, y
 {% code-tabs %}
 {% code-tabs-item title="state/customer.state.ts" %}
 ```typescript
-import { buildService, IEntityState } from '@briebug/ngrx-auto-entity';
+import { buildState, IEntityState } from '@briebug/ngrx-auto-entity';
 import { Customer } from '../models'
 
 export const { initialState, facade: CustomerFacadeBase } = buildState(Customer);
