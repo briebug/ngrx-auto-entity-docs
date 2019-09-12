@@ -37,7 +37,10 @@ import { createReducer } from '@ngrx/store';
 import { Customer } from 'models';
 
 export const { initialState: customerInitialState, facade: CustomerFacadeBase } = buildState(Customer);
-export const customerReducer = createReducer(customerInitialState);
+
+export function customerReducer(state = initialState): IEntityState<Customer> {
+  return state;
+}
 ```
 {% endcode-tabs-item %}
 
@@ -48,7 +51,11 @@ import { createReducer } from '@ngrx/store';
 import { Order } from 'models';
 
 export const { initialState: orderInitialState, facade: OrderFacadeBase } = buildState(Order);
-export const orderReducer = createReducer(initialState);
+
+export function orderReducer(state = initialState): IEntityState<Order> {
+  return state;
+}
+
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
