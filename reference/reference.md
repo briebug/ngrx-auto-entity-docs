@@ -1,11 +1,83 @@
 # Reference documentation
 > Note: This section of the ngrx-auto-entity documentation is a work in progress. A lot of features are currently missing, incomplete, or out of date. Feel free to ask questions on github or by e-mail if needed!
 
+<!-- -->
+<br>
+<br>
+<!-- -->
+
+<!-- Section: Modules -->
+## **Modules**
+
+<!-- NgrxAutoEntityModule -->
+`NgrxAutoEntityModule` - The main module that should be imported into the app module.
+
+{% code-tabs %}
+{% code-tabs-item title="src/app/app.module.ts" %}
+```typescript
+import { NgrxAutoEntityModule } from '@briebug/ngrx-auto-entity';
+// ... other imports ...
+
+@NgModule({
+    imports: [
+        BrowserModule,
+        StoreModule.forRoot(appReducer, { metaReducers: appMetaReducers }),
+        EffectsModule.forRoot([]),
+        NgrxAutoEntityModule.forRoot() // Add this!
+    ]
+})
+export class AppModule {}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+<!-- -->
+<br>
+<br>
+<!-- -->
+
 <!-- Section: Functions -->
-### **Functions**
-| Name | Arguments | Return Type | Description |
-| ---- | --------- | ----------- | ----------- |
-| buildState | type: IModelClass\<TModel\> - *the entity class* <br> extraInitialState?: any - *the (optional) initial state* | IModelState\<TParentState, TState, TModel\> | Builds the initial NgRx state for an entity and provides a base Facade class that can be extended. |
+## **Functions**
+
+<!-- buildState -->
+`buildState` - Builds the initial NgRx state for an entity and provides a base Facade class that can be extended.
+
+```typescript
+buildState(type: IModelClass<TModel>, extraInitialState?: any): IModelState<TParentState, TState, TModel>
+```
+
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| type | IModelClass\<TModel\> | the entity class |
+| *extraInitialState?* | *any* | *the (optional) initial state* |
+
+**Returns** [IModelState](#imodelstate)
+
+<br>
+<br>
+
+<!-- buildFeatureState -->
+`buildFeatureState` - Builds the Ngrx state for an entity that is part of a feature module.
+
+```typescript
+buildFeatureState<TState extends IEntityState<TModel>, TParentState, TModel>(
+  type: IModelClass<TModel>,
+  featureStateName: NonNullable<string>,
+  selectParentState: MemoizedSelector<object, TParentState>,
+  extraInitialState?: any
+): IModelState<TParentState, TState, TModel>
+```
+
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| type | IModelClass\<TModel\> | the entity class |
+| featureStateName | NonNullable\<string\> | the name of the feature state |
+| selectParentState | MemoizedSelector\<object, TParentState\> | a selector for the entity's parent state |
+| *extraInitialState?* | *any* | *the (optional) initial feature state* |
+
+**Returns** [IModelState](#imodelstate)
+
+
 
 <!-- -->
 <br>
@@ -13,13 +85,12 @@
 <!-- -->
 
 <!-- Section: Decorators -->
-### **Decorators**
-| Name | Factory? | Arguments | Description |
-| ---- | -------- | --------- | ----------- |
-| Key | No | - | Designates the key property for the entity |
+## **Decorators**
+
+`@Key` - Designates the key property for the entity.
 
 {% code-tabs %}
-{% code-tabs-item title="Usage example" %}
+{% code-tabs-item title="src/app/models/account.model.ts" %}
 ```typescript
 import { Key } from '@briebug/ngrx-auto-entity';
 
@@ -38,15 +109,16 @@ export class Account {
 <!-- -->
 
 <!-- Section: Facade -->
-### **Facade**
+## **Facades**
 Prefabricated facades come complete with a core set of properties and methods that may be used "out of the box" without any additional work on your part beyond extending the base facade class.
 
 <br>
 
-#### Properties (Selectors)
+**Properties (Selectors)** <br>
 Getters that will return an observable containing data on the **Facade** model's entities and state.
+
 | Property | Return Type | Description |
-| -------- | ----------- | ------- |
+| -------- | ----------- | ----------- |
 | all$ | Observable\<TModel[]\> | Get all entities as an array. |
 | entities$ | Observable\<IEntityDictionary\<TModel\>\> | Get all entities as a dictionary. |
 | ids$ | Observable\<EntityIdentity[]\> | Get all entity ids as an array. |
@@ -70,8 +142,8 @@ Getters that will return an observable containing data on the **Facade** model's
 
 <br>
 
-#### Methods (Actions)
-Functions for manipulating the **Facade** model's entities and state (note: all of their return type is void).
+**Methods (Actions)** <br>
+Functions for manipulating the **Facade** model's entities and state (note: all return types are void).
 
 | Name | Arguments | Description |
 | ---- | --------- | ----------- |
@@ -85,8 +157,8 @@ Functions for manipulating the **Facade** model's entities and state (note: all 
 | deselectMany | entities: TModel[] | TBD |
 | deselectManyByKeys | keys: EntityIdentity[] | TBD |
 | deselectAll | - | TBD |
-| edit | entity: Partial<TModel> | TBD |
-| change | entity: Partial<TModel> | TBD |
+| edit | entity: Partial\<TModel\> | TBD |
+| change | entity: Partial\<TModel\> | TBD |
 | endEdit | - | TBD |
 | load | keys: any, *criteria?: any* | TBD |
 | loadMany | criteria: any | TBD |
@@ -102,3 +174,78 @@ Functions for manipulating the **Facade** model's entities and state (note: all 
 | delete | entity: TModel, *criteria?: any* | TBD |
 | deleteMany | entities: TModel[], *criteria?: any* | TBD |
 | clear | - | TBD |
+
+<!-- -->
+<br>
+<br>
+<!-- -->
+
+<!-- Section: Interfaces -->
+## **Interfaces**
+This is by no means an exhaustive list of all interfaces included with the library -- only the relevant ones.
+
+<br>
+
+<!-- IEntityState -->
+`IEntityState<TModel>` - Structure for how entities are stored along with the array of their keys.
+
+```typescript
+interface IEntityState<TModel> {
+  entities: IEntityDictionary<TModel>;
+  ids: EntityIdentity[];
+  currentEntityKey?: EntityIdentity;
+  currentEntitiesKeys?: EntityIdentity[];
+  editedEntity?: Partial<TModel>;
+  isDirty?: boolean;
+  currentPage?: Page;
+  currentRange?: Range;
+  totalPageableCount?: number;
+  isLoading?: boolean;
+  isSaving?: boolean;
+  isDeleting?: boolean;
+  loadedAt?: Date;
+  savedAt?: Date;
+  createdAt?: Date;
+  deletedAt?: Date;
+}
+```
+
+| Parameter | Description |
+| --------- | ----------- |
+| TModel | The model each entity follows (e.g. Customer, Account, Order, etc.). |
+
+
+<!-- IModelState -->
+<a id="imodelstate"></a>
+
+<br>
+<br>
+
+`IModelState<TParentState, TState, TModel>` - Structure of the model state built by the `buildState()` function.
+
+```typescript
+interface IEntityState<TModel> {
+  entities: IEntityDictionary<TModel>;
+  ids: EntityIdentity[];
+  currentEntityKey?: EntityIdentity;
+  currentEntitiesKeys?: EntityIdentity[];
+  editedEntity?: Partial<TModel>;
+  isDirty?: boolean;
+  currentPage?: Page;
+  currentRange?: Range;
+  totalPageableCount?: number;
+  isLoading?: boolean;
+  isSaving?: boolean;
+  isDeleting?: boolean;
+  loadedAt?: Date;
+  savedAt?: Date;
+  createdAt?: Date;
+  deletedAt?: Date;
+}
+```
+
+| Parameter | Description |
+| --------- | ----------- |
+| TParentState | TBD |
+| TState | TBD |
+| TModel | The model each entity follows (e.g. Customer, Account, Order, etc.). |

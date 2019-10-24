@@ -24,10 +24,6 @@ The following peer requirements must also be installed when using NgRx Auto Enti
 | `@ngrx/store` | 8.0.0 |
 | `rxjs` | 6.0.0 |
 
-{% hint style="success" %}
-Copy and paste for a quick install:
-{% endhint %}
-
 ```text
 npm i @angular/{common,core}@^8.0 @ngrx/{effects,store}@^8.0 rxjs@^6
 ```
