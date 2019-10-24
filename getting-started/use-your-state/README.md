@@ -20,8 +20,8 @@ export class CustomerFacade extends CustomerFacadeBase {
     constructor(store: Store<AppState>) {
         super(Customer, store);
     }
-    
-    // TODO: Extend your facade's functionaltiy here!
+
+    // TODO: Extend your facade's functionality here!
 }
 ```
 {% endcode-tabs-item %}
@@ -46,7 +46,7 @@ export class CustomerComponent implements OnInit {
   customer$: Observable<Customer>;
 
   constructor(
-    private activatedRoute: ActivatedRoute, 
+    private activatedRoute: ActivatedRoute,
     private customerFacade: CustomerFacade // No store, no selectors!
   ) {}
 
@@ -90,9 +90,9 @@ export class CustomerComponent implements OnInit {
 <div class="customers">
   <div>
     <h2>Customer</h2>
-    <app-customer-form 
+    <app-customer-form
       #customerForm
-      [customer]="customer$ | async" 
+      [customer]="customer$ | async"
       (saved)="onSave($event)">
     </app-customer-form>
     <div>
@@ -107,5 +107,5 @@ export class CustomerComponent implements OnInit {
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-Note the changes here. We imported only the activated route and a facade into our component. Our component does not import any state-related types at all. No actions, no store, no app state interface, none of the usual suspects. All state interactions occur through the facade. 
+Note the changes here. We imported only the activated route and a facade into our component. Our component does not import any state-related types at all. No actions, no store, no app state interface, none of the usual suspects. All state interactions occur through the facade.
 
