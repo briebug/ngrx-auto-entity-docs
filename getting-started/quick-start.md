@@ -4,7 +4,7 @@ description: Getting started with NgRx Auto-Entity is easy!
 
 # Quick Start
 
-If you are already familiar with NgRx, then adding Auto-Entity to your Angular application is very easy. There are four major steps required to add the module, create new entity state, and provide your entity services. 
+If you are already familiar with NgRx, then adding Auto-Entity to your Angular application is very easy. There are four major steps required to add the module, create new entity state, and provide your entity services.
 
 ### Step 1: Importing the Module
 
@@ -45,7 +45,7 @@ export class Customer {
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-First, your models must be classes rather than interfaces \(see [advanced documentation](../advanced/usage/paradigm/models.md) for more info.\) Second, your entity identity must be decorated with the `@Key` directive. For entities with composite keys, simply decorate each property that is part of the key. 
+First, your models must be classes rather than interfaces \(see [advanced documentation](../advanced/usage/paradigm/models.md) for more info.\) Second, your entity identity must be decorated with the `@Key` directive. For entities with composite keys, simply decorate each property that is part of the key.
 
 #### Entity Services
 
@@ -81,7 +81,7 @@ export class EntityService implements IAutoEntityService<any> {
 
   create(entityInfo: IEntityInfo, entity: any): Observable<any> {
     return this.http.post<any>(
-      `${environment.rootUrl}/${entityInfo.modelName}`, 
+      `${environment.rootUrl}/${entityInfo.modelName}`,
       entity
     );
   }
@@ -139,7 +139,7 @@ export class AppModule {}
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-In our example here, we are sharing a single entity service, `EntityService`, for all entities. We must `provide` each model and `useClass` to specify the service class to use. 
+In our example here, we are sharing a single entity service, `EntityService`, for all entities. We must `provide` each model and `useClass` to specify the service class to use.
 
 ### Step 4: Adding your States
 
