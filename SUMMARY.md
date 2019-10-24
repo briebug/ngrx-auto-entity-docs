@@ -75,3 +75,6 @@
 
 ## Documentation
 * [Reference](documentation/reference.md)
+
+## Extras
+* [Github Link](https://github.com/briebug/ngrx-auto-entity)
