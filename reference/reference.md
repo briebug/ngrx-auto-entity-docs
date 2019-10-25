@@ -10,8 +10,9 @@
 ## **Modules**
 
 <!-- NgrxAutoEntityModule -->
-`NgrxAutoEntityModule` - The main module that should be imported into the app module.
+`NgrxAutoEntityModule` - The main module that should be imported into the app module or feature modules.
 
+**For the AppModule:**
 {% code-tabs %}
 {% code-tabs-item title="src/app/app.module.ts" %}
 ```typescript
@@ -24,6 +25,25 @@ import { NgrxAutoEntityModule } from '@briebug/ngrx-auto-entity';
         StoreModule.forRoot(appReducer, { metaReducers: appMetaReducers }),
         EffectsModule.forRoot([]),
         NgrxAutoEntityModule.forRoot() // Add this!
+    ]
+})
+export class AppModule {}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+**For a feature module:**
+{% code-tabs %}
+{% code-tabs-item title="src/app/+orders/orders.module.ts" %}
+```typescript
+import { NgrxAutoEntityModule } from '@briebug/ngrx-auto-entity';
+// ... other imports ...
+
+@NgModule({
+    imports: [
+        CommonModule,
+        StoreModule.forFeature('orders', featureReducer),
+        NgrxAutoEntityModule.forFeature() // Changed from forRoot() to forFeature()
     ]
 })
 export class AppModule {}
@@ -184,10 +204,12 @@ Functions for manipulating the **Facade** model's entities and state (note: all 
 ## **Interfaces**
 This is by no means an exhaustive list of all interfaces included with the library -- only the relevant ones.
 
+<!-- IEntityState -->
+<a id="ientitystate"></a>
+
 <br>
 
-<!-- IEntityState -->
-`IEntityState<TModel>` - Structure for how entities are stored along with the array of their keys.
+`IEntityState<TModel>` - Structure for how entities are stored, including useful computed properties such as an array of their keys, status checks, timestamps, etc.
 
 ```typescript
 interface IEntityState<TModel> {
