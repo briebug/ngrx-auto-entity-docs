@@ -93,7 +93,7 @@ buildFeatureState<TState extends IEntityState<TModel>, TParentState, TModel>(
 | type | IModelClass\<TModel\> | the entity class |
 | featureStateName | NonNullable\<string\> | the name of the feature state |
 | selectParentState | MemoizedSelector\<object, TParentState\> | a selector for the entity's parent state |
-| *extraInitialState?* | *any* | *the (optional) initial feature state* |
+| *extraInitialState?* | *any* | *the (optional) initial feature state as well as any additional state you may want to include for this entity * |
 
 **Returns** [IModelState](#imodelstate)
 
@@ -135,7 +135,7 @@ Prefabricated facades come complete with a core set of properties and methods th
 <br>
 
 **Properties (Selectors)** <br>
-Getters that will return an observable containing data on the **Facade** model's entities and state.
+Getters that will return an observable containing data on the **Facade**'s entities and state.
 
 | Property | Return Type | Description |
 | -------- | ----------- | ----------- |
@@ -152,9 +152,9 @@ Getters that will return an observable containing data on the **Facade** model's
 | currentPage$ | Observable\<Page\> | Get the current **Page** if using pagination. |
 | currentRange$ | Observable\<Range\> | Get the current **Range** if using pagination. |
 | totalPageable$ | Observable\<number\> | TBD |
-| isLoading$ | Observable\<boolean\> | Get whether this **Facade** is loading. |
-| isSaving$ | Observable\<boolean\> | Get whether this **Facade** is saving. |
-| isDeleting$ | Observable\<boolean\> | Get whether this **Facade** is deleting. |
+| isLoading$ | Observable\<boolean\> | Get whether this **Entity** is loading. |
+| isSaving$ | Observable\<boolean\> | Get whether this **Entity** is saving. |
+| isDeleting$ | Observable\<boolean\> | Get whether this **Entity** is deleting. |
 | loadedAt$ | Observable\<Date\> | Get the Date object representing when entities were loaded last. |
 | savedAt$ | Observable\<Date\> | Get the Date object representing when entities were loaded last. |
 | createdAt$ | Observable\<Date\> | Get the Date object representing when an entity was created last. |
@@ -163,7 +163,7 @@ Getters that will return an observable containing data on the **Facade** model's
 <br>
 
 **Methods (Actions)** <br>
-Functions for manipulating the **Facade** model's entities and state (note: all return types are void).
+Functions for manipulating the **Facade**'s entities and state (note: all return types are void).
 
 | Name | Arguments | Description |
 | ---- | --------- | ----------- |
@@ -202,7 +202,7 @@ Functions for manipulating the **Facade** model's entities and state (note: all 
 
 <!-- Section: Interfaces -->
 ## **Interfaces**
-This is by no means an exhaustive list of all interfaces included with the library -- only the relevant ones.
+This is by no means an exhaustive list of all interfaces included with the library, but it should have the most relevant ones.
 
 <!-- IEntityState -->
 <a id="ientitystate"></a>
