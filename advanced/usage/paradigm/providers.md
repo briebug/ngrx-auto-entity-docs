@@ -10,8 +10,7 @@ For most Angular applications, services can be provided very simply, simply by i
 
 Instead of registering the service itself directly, we must instead register the **model class** as the provider, and map it to an entity service via the `useClass` option. Like so:
 
-{% code-tabs %}
-{% code-tabs-item title="src/app/app.module.ts" %}
+{% code title="src/app/app.module.ts" %}
 ```typescript
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -32,8 +31,7 @@ import { CustomerService } from 'services/customer.service';
 })
 export class AppModule {}
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 When dispatching an action, the model class is specified as the first parameter, and as such the model class is the only thing NgRX Auto-Entity can use to look up the necessary service provider. By mapping the model class to the service class, you are leveraging a standard Angular paradigm to support dynamic service lookup at runtime.
 

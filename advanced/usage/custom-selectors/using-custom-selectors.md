@@ -2,8 +2,7 @@
 
 When it comes to using custom selectors, they are used the same as any prefabricated facade property or method. As a quick example, our prior two custom selections added to our `CustomerFacade` may be used as so:
 
-{% code-tabs %}
-{% code-tabs-item title="customer-by-name.component.ts" %}
+{% code title="customer-by-name.component.ts" %}
 ```typescript
 @Component({
   selector: 'app-customer-by-name',
@@ -29,6 +28,5 @@ export class CustomerByNameComponent implements OnInit {
   }
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 

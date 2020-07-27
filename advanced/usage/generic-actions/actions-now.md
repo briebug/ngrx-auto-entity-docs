@@ -6,8 +6,7 @@ description: Current Complexity with Action Definitions
 
 A standard approach to implementing actions with @ngrx requires defining an enumeration of action types, which map a code identifier to a string, implementation of an action class that derives from `Action` and the concatenation of each action type into an action union that allows proper implementation of a reducer function to reduce actions and the information they contain into your state. 
 
-{% code-tabs %}
-{% code-tabs-item title="customer.actions.ts" %}
+{% code title="customer.actions.ts" %}
 ```typescript
 export enum CustomerActionTypes {
     CREATE_CUSTOMER = '[Customer] Create',
@@ -42,8 +41,7 @@ export union CustomerActions =
     | CreateCustomerFailure 
      // ... additional actions to union ...;
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ### Lot of work!
 
@@ -57,8 +55,7 @@ Note: The most recent release of NgRx, version 8, has introduced some utility fu
 
 Once actions are defined, one may then dispatch them using the @ngrx store. This is usually done within Angular container components:
 
-{% code-tabs %}
-{% code-tabs-item title="customers.component.ts" %}
+{% code title="customers.component.ts" %}
 ```typescript
 import {Customer} from 'models';
 import {CreateCustomer, LoadCustomers} from 'state/customer.actions';
@@ -89,8 +86,7 @@ export class CustomersComponent implements OnInit {
     // ...
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 For actions to actually do anything, however, you need more. Your work does not end here. You still need effects, and reducers, to make any of these dispatched actions actually **perform useful work** and **update state**. 
 

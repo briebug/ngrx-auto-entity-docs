@@ -6,8 +6,8 @@ description: Stuff about Things
 
 ### Customer & Address
 
-{% code-tabs %}
-{% code-tabs-item title="models/customer.model.ts" %}
+{% tabs %}
+{% tab title="models/customer.model.ts" %}
 ```typescript
 import { Key } from '@briebug/ngrx-auto-entity';
 import { Address } from './address.model';
@@ -24,9 +24,9 @@ export class Customer {
     addressId?: number;
 }
 ```
-{% endcode-tabs-item %}
+{% endtab %}
 
-{% code-tabs-item title="models/address.model.ts" %}
+{% tab title="models/address.model.ts" %}
 ```typescript
 import { Key } from '@briebug/ngrx-auto-entity';
 
@@ -39,13 +39,13 @@ export class Address {
     zip: string;
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
 
 ### Order & Line Item
 
-{% code-tabs %}
-{% code-tabs-item title="models/order.model.ts" %}
+{% tabs %}
+{% tab title="models/order.model.ts" %}
 ```typescript
 import { Key } from '@briebug/ngrx-auto-entity';
 
@@ -77,9 +77,9 @@ export class OrderHistory {
     newStatus: OrderStatus;
 }
 ```
-{% endcode-tabs-item %}
+{% endtab %}
 
-{% code-tabs-item title="models/lineItem.model.ts" %}
+{% tab title="models/lineItem.model.ts" %}
 ```typescript
 import { Key } from '@briebug/ngrx-auto-entity';
 
@@ -90,19 +90,17 @@ export class LineItem {
     isRush: boolean;
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
 
 #### Barrel
 
-{% code-tabs %}
-{% code-tabs-item title="models/index.ts" %}
+{% code title="models/index.ts" %}
 ```typescript
 export * from './address.model';
 export * from './customer.model';
 export * from './lineItem.model';
 export * from './order.model';
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 

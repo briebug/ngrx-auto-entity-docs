@@ -6,19 +6,16 @@ description: Are you even a programmer anymore?
 
 Here is the full excerpt of code that you had to write to implement our customers container component from the facade examples. We are assuming code module imports are handled by the IDE and are not something you would necessarily "write" yourself. Standard Angular decorator content excluded as it is usually generated for you. 
 
-{% code-tabs %}
-{% code-tabs-item title="customer.state.ts" %}
+{% code title="customer.state.ts" %}
 ```typescript
 export const { initialState, facade: CustomerFacadeBase } = buildState(Customer);
 export function customerReducer(state = initialState): IEntityState<Customer> {
     return state;
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="customer.facade.ts" %}
+{% code title="customer.facade.ts" %}
 ```typescript
 @Injectable({providedIn: 'root'})
 export class CustomerFacade extends CustomerFacadeBase {
@@ -27,11 +24,9 @@ export class CustomerFacade extends CustomerFacadeBase {
     }
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="customers.component.ts" %}
+{% code title="customers.component.ts" %}
 ```typescript
 @Component({...})
 export class CustomersComponent {
@@ -53,11 +48,9 @@ export class CustomersComponent {
     }
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="customers.component.html" %}
+{% code title="customers.component.html" %}
 ```markup
 <div class="customers" *ngIf="customers.isLoading$ | async; else #loading">
     <app-customer-list 
@@ -73,8 +66,7 @@ export class CustomersComponent {
     Loading customers...
 </ng-template>
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 There are also a couple additional lines of code you may need to add to your `app.state.ts` file for the app state interface and app reducer map, as well as a provider mapping between the model and the entity service. See [quick start](../../getting-started/from-scratch/) for more info.
 

@@ -6,8 +6,7 @@ description: Create service for handling data interactions with server
 
 In our example we are creating a service for persisting entities via a simple REST API. As such, we've created a new **entity.service.ts** file and defined an injectable `EntityService` class.
 
-{% code-tabs %}
-{% code-tabs-item title="services/entity.service.ts" %}
+{% code title="services/entity.service.ts" %}
 ```typescript
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -55,8 +54,7 @@ export class EntityService implements IAutoEntityService<any> {
   }
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 {% hint style="success" %}
 It's important that each entity service implement the `IAutoEntity` interface. This interface supports the following methods:

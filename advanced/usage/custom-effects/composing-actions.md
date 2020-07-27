@@ -14,8 +14,7 @@ A simple use case might be the creation of an `Order` that contains `LineItem`s.
 
 Start by creating a custom action, `createFullOrder`. This action will require both an Order entity as well as an array of `LineItem` entities. We only need this one action, as we will ultimately leverage existing Auto-Entity actions down the line. Lets just put this new action in the state file for our order state:
 
-{% code-tabs %}
-{% code-tabs-item title="state/order.state.ts" %}
+{% code title="state/order.state.ts" %}
 ```typescript
 // ... other order state config...
 
@@ -24,13 +23,11 @@ export const createFullOrder = createAction(
     props<{ order: Readonly<Order>, lineItems: ReadonlyArray<LineItem> }>()
 );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 With this action now in hand, we want to update our Order facade to support creation of a full order with its line items. We can simple add a new method to our facade that will facilitate this new behavior:
 
-{% code-tabs %}
-{% code-tabs-item title="facades/order.facade.ts" %}
+{% code title="facades/order.facade.ts" %}
 ```typescript
 import { createFullOrder, OrderFacadeBase } from '../state/order.state';
 
@@ -47,8 +44,7 @@ export class OrderFacade extendes OrderFacadeBase {
     }
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ### Order Creation Custom Effect
 
@@ -56,8 +52,7 @@ In order to leverage NgRx Auto-Entity here, we will need to create some effects 
 
 This order of execution is important as creation of a LineItem entity requires knowledge of the Order they belong to, and the key for this order is only known once it is created. Achieving it can be a little tricky, but it tends to be easier in an effect than elsewhere:
 
-{% code-tabs %}
-{% code-tabs-item title="state/order.effects.ts" %}
+{% code title="state/order.effects.ts" %}
 ```typescript
 export class OrderEffects {
     constructor(private actions$: Actions, private store: Store<AppState>) {}
@@ -85,8 +80,7 @@ export class OrderEffects {
     , {dispatch: false});
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 {% hint style="warning" %}
 Don't forget register your new `OrderEffects` class with the NgRx `EffectsModule`!

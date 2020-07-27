@@ -32,5 +32,3 @@ npm i @angular/{common,core}@^8.0 @ngrx/{effects,store}@^8.0 rxjs@^6
 yarn add @angular/{common,core}@^8.0 @ngrx/{effects,store}@^8.0 rxjs@^6
 ```
 
-
-

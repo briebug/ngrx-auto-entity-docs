@@ -6,8 +6,7 @@ description: Create application state module.
 
 Now that we have implemented our root state interface & reducer map, we need to _update_ the state module we created in the first step:
 
-{% code-tabs %}
-{% code-tabs-item title="state.module.ts" %}
+{% code title="state.module.ts" %}
 ```typescript
 import { NgModule } from '@angular/core';
 import { NgrxAutoEntityModule } from '@briebug/ngrx-auto-entity';
@@ -25,8 +24,7 @@ import { appMetaReducers, appReducer } from './app.state';
 })
 export class StateModule {}
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Update the import of the `StoreModule`. In the `forRoot()` static method, specify the `appReducer` and `appMetaReducers` from your previously created `app.reducer` as with any normal NgRX app.
 

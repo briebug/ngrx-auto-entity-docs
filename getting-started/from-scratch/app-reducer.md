@@ -6,8 +6,7 @@ description: Create application reducer and meta reducer.
 
 Also like normal NgRX apps, add a reducer map to your **app.state.ts** file. We recommend creating this file in a root **state** directory, located at src/app/state.
 
-{% code-tabs %}
-{% code-tabs-item title="app.state.ts" %}
+{% code title="app.state.ts" %}
 ```typescript
 import { ActionReducerMap, MetaReducer } from '@ngrx/store';
 import { IEntityState } from '@briebug/ngrx-auto-entity';
@@ -22,8 +21,7 @@ export const appReducer: ActionReducerMap<AppState> = {
   // todo: add each entity reducer
 };
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 {% hint style="danger" %}
 In versions of NgRx Auto-Entity prior to v0.2, the developer was also responsible for including the `autoEntityMetaReducer` in the app meta reducers collection. As of version 0.2 of the library, import of the `NgrxAutoEntityModule` with the `.forRoot()` call is all that is necessary to include the meta reducer.

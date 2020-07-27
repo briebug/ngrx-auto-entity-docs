@@ -74,7 +74,10 @@
   * [Modal Component](examples/application/modal-component.md)
 
 ## Documentation
+
 * [Reference](documentation/reference.md)
 
 ## Extras
+
 * [Github Link](https://github.com/briebug/ngrx-auto-entity)
+

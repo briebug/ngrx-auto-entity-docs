@@ -6,8 +6,8 @@ description: Bundles of UI
 
 ### Customers
 
-{% code-tabs %}
-{% code-tabs-item title="components/customers.component.ts" %}
+{% tabs %}
+{% tab title="components/customers.component.ts" %}
 ```typescript
 import { Component } from '@angular/core';
 import { CustomerFacade } from 'facades';
@@ -24,9 +24,9 @@ export class CustomersComponent {
   }
 }
 ```
-{% endcode-tabs-item %}
+{% endtab %}
 
-{% code-tabs-item title="components/customers.component.html" %}
+{% tab title="components/customers.component.html" %}
 ```markup
 <div class="customers" *ngIf="customers.isLoading$ | async; else loading">
     <app-customer-list 
@@ -45,13 +45,13 @@ export class CustomersComponent {
     Loading customers...
 </ng-template>
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
 
 ### Orders
 
-{% code-tabs %}
-{% code-tabs-item title="components/orders.component.ts" %}
+{% tabs %}
+{% tab title="components/orders.component.ts" %}
 ```typescript
 import { Component } from '@angular/core';
 import { Router } froj '@angular/router';
@@ -71,9 +71,9 @@ export class CustomersComponent {
   }
 }
 ```
-{% endcode-tabs-item %}
+{% endtab %}
 
-{% code-tabs-item title="components/orders.component.html" %}
+{% tab title="components/orders.component.html" %}
 ```markup
 <div class="orders" *ngIf="orders.isLoading$ | async; else loading">
     <app-order-list 
@@ -93,6 +93,6 @@ export class CustomersComponent {
     Loading orders...
 </ng-template>
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
 

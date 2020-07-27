@@ -10,23 +10,20 @@ When the need arises to create a **custom action** & **custom effects**, Auto-En
 
 As a simple example, you may wish to create a custom action for handling type-ahead lookups that search a given entity. 
 
-{% code-tabs %}
-{% code-tabs-item title="customer.actions.ts" %}
+{% code title="customer.actions.ts" %}
 ```typescript
 export const SearchCustomers = createAction(
   '[Customer] Typeahead Search',
   props<{criteria: string }>()
 );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ### Custom Effect
 
 You could then implement your own effect for handling this action to ensure the proper implementation and behavior:
 
-{% code-tabs %}
-{% code-tabs-item title="customer.effects.ts" %}
+{% code title="customer.effects.ts" %}
 ```typescript
 import {Actions, createEffect} from '@ngrx/effects';
 import {LoadAllSuccess, LoadAllFailure} from '@briebug/ngrx-auto-entity';
@@ -46,8 +43,7 @@ export class CustomerEffects {
     constructor(private actions$: Actions, private customerService: CustomerService) {}
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 In this case, we need `switchMap` semantics...that is, we wish to cancel any previous requests that may have stale information in order to utilize the most up to date search criteria the user may have entered. 
 

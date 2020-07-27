@@ -2,8 +2,7 @@
 
 Finally, in order for NgRx Auto-Entity to find the entity service you just created, you must provide it in your application state. Providing entity services is slightly different than a normal provider, which simply provides itself as the service class. 
 
-{% code-tabs %}
-{% code-tabs-item title="app.module.ts" %}
+{% code title="app.module.ts" %}
 ```typescript
 import { NgModule } from '@angular/core';
 import { StateModule } from './state';
@@ -18,8 +17,7 @@ import { EntityService } from './services';
 })
 export class AppModule {}
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Here, we have provided the **model** type as the provider, and specified the `EntityService` class as the actual service class via `useClass`. This is the simplest model for using Auto-Entity, and for simple backend APIs that follow a common pattern, a single service like this may be reused for any number of entities.
 

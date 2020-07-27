@@ -8,8 +8,8 @@ In our `CustomerComponent`, there are a few methods that exhibit **"class envy"*
 
 Our `CustomerComponent` has two potential candidates for encapsulation within our `CustomerFacade` class: `hasCustomer` and onSave. We can easily move this functionality into our facade class and make these behaviors reusable in any component that may require interaction with customer entity state:
 
-{% code-tabs %}
-{% code-tabs-item title="customer.facade.ts" %}
+{% tabs %}
+{% tab title="customer.facade.ts" %}
 ```typescript
 export class CustomerFacade extends CustomerFacadeBase {
     constructor(store: Store<AppState>) {
@@ -38,14 +38,11 @@ export class CustomerFacade extends CustomerFacadeBase {
         }
     }
 }
-
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
 
 {% hint style="info" %}
 Entity facades include a considerable amount of ready-to-go functionality. Check out the advanced facade documentation [here](../../advanced/leveraging-facades/) to learn more about everything our facades provide and how to extend them.
 {% endhint %}
-
-
 

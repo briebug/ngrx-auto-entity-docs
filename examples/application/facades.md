@@ -6,8 +6,8 @@ description: Business Central
 
 ### Customer Facade
 
-{% code-tabs %}
-{% code-tabs-item title="facades/customer.facade.ts" %}
+{% tabs %}
+{% tab title="facades/customer.facade.ts" %}
 ```typescript
 import { Injectable } from '@angular/core';
 import { store } from '@ngrx/store';
@@ -37,9 +37,9 @@ export class CustomerFacade extends CustomerFacadeBase {
     }
 }
 ```
-{% endcode-tabs-item %}
+{% endtab %}
 
-{% code-tabs-item title="facades/customer-ui.facade.ts" %}
+{% tab title="facades/customer-ui.facade.ts" %}
 ```typescript
 import { Injectable } from '@angular/core';
 
@@ -59,11 +59,11 @@ export class CustomerUIFacade {
     }
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
 
-{% code-tabs %}
-{% code-tabs-item title="facades/order.facade.ts" %}
+{% tabs %}
+{% tab title="facades/order.facade.ts" %}
 ```typescript
 import { Injectable } from '@angular/core';
 import { store } from '@ngrx/store';
@@ -82,9 +82,9 @@ export class OrderFacade extends OrderFacadeBase {
     }
 }
 ```
-{% endcode-tabs-item %}
+{% endtab %}
 
-{% code-tabs-item title="facades/lineItem.facade.ts" %}
+{% tab title="facades/lineItem.facade.ts" %}
 ```typescript
 import { Injectable } from '@angular/core';
 import { store } from '@ngrx/store';
@@ -113,15 +113,13 @@ export class LineItemFacade extends LineItemFacadeBase {
     }
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
 
-{% code-tabs %}
-{% code-tabs-item title="facades/index.ts" %}
+{% code title="facades/index.ts" %}
 ```typescript
 export * from './customer.facade';
 export * from './customer-ui.facade';
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 

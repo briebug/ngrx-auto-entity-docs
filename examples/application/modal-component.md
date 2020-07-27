@@ -6,8 +6,8 @@ description: Rogue UI
 
 ### Modal Container
 
-{% code-tabs %}
-{% code-tabs-item title="components/customer-edit.component.ts" %}
+{% tabs %}
+{% tab title="components/customer-edit.component.ts" %}
 ```typescript
 import { Component } from '@angular/core';
 import { CustomerFacade } from '../facades';
@@ -25,9 +25,9 @@ export class CustomerEditComponent {
   }
 }
 ```
-{% endcode-tabs-item %}
+{% endtab %}
 
-{% code-tabs-item title="components/customer-edit.component.html" %}
+{% tab title="components/customer-edit.component.html" %}
 ```markup
 <div class="customer-exit">
   <div>
@@ -45,13 +45,13 @@ export class CustomerEditComponent {
   </div>
 </div>
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
 
 ### Modal Form
 
-{% code-tabs %}
-{% code-tabs-item title="components/customer-edit-form.component.ts" %}
+{% tabs %}
+{% tab title="components/customer-edit-form.component.ts" %}
 ```typescript
 import { Component, Input, Output } from '@angular/core';
 import { Customer } from '../models';
@@ -108,9 +108,9 @@ export class CustomersEditFormComponent implements OnChanges, OnInit {
   }
 }
 ```
-{% endcode-tabs-item %}
+{% endtab %}
 
-{% code-tabs-item title="components/customer-edit-form.component.html" %}
+{% tab title="components/customer-edit-form.component.html" %}
 ```markup
 <form [formGroup]="form">
     <div>
@@ -159,6 +159,6 @@ export class CustomersEditFormComponent implements OnChanges, OnInit {
   </div>
 </form>
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
 

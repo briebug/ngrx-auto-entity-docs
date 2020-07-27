@@ -6,8 +6,7 @@ description: Define the initial entity state
 
 In our example we are building the state for the `Customer` entity. As such, we've created a new **customer.state.ts** file located at src/app/state/customer.state.ts.
 
-{% code-tabs %}
-{% code-tabs-item title="customer.state.ts" %}
+{% code title="customer.state.ts" %}
 ```typescript
 import { Action } from '@ngrx/store';
 import { buildState, IEntityState } from '@briebug/ngrx-auto-entity';
@@ -23,8 +22,7 @@ export function customerReducer(state = initialState): IEntityState<Customer> {
   return state;
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Import the `buildState` function from the ngrx-auto-entity module. This function builds the initial state and selectors for each entity. Call the function by passing in the Customer entity class \(note, the class must be passed in!\) We use object _destructuring_ on the return type access the `initialState` , `selectors` and `facade` base class from the result of `buildState`.
 

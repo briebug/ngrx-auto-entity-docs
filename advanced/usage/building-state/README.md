@@ -10,8 +10,7 @@ At the core of NgRx Auto-Entity is the `buildState` function. This utility funct
 
 Now you simply need to call `buildState()` like so:
 
-{% code-tabs %}
-{% code-tabs-item title="entity.state.ts" %}
+{% code title="entity.state.ts" %}
 ```typescript
 import { IEntityState } from '@briebug/ngrx-auto-entity';
 import { Model } from 'models';
@@ -21,8 +20,7 @@ export function entityReducer(state = initialState): IEntityState<Model> {
     return state;
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 That is about as simple as it gets, unless you need to do anything custom, such as add your own additional support actions, use selectors, or retrieve the prefabricated facade base class so you can keep your state encapsulated. 
 

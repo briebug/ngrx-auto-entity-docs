@@ -6,8 +6,7 @@ description: When ready-made just isn't enough
 
 While NgRx Auto-Entity provides quite a bit of ready-made functionality, tracking state for many of the most common elements of entity state including the usual "custom" aspects such as the currently selected entity, loading flags, etc. there may be cases where you still need to create a custom selector. Even when using prefabricated facades, once you get into extending those facades, custom selectors are not uncommon. 
 
-{% code-tabs %}
-{% code-tabs-item title="customer.state.ts" %}
+{% code title="customer.state.ts" %}
 ```typescript
 import { createSelector } from '@ngrx/store';
 import { buildState } from '@briebug/ngrx-auto-entity';
@@ -27,8 +26,7 @@ export const firstCustomer = createSelector(
         ids?.length && entities ? entities[ids[0]] : null;
 );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ### Nothing New Here
 
@@ -42,8 +40,7 @@ Don't forget to destructure the `selectors` map to pull out the specific selecto
 
 Note that it is also possible to create parameterized selectors with @ngrx. You may still implement parameterized selectors with Auto-Entity as well:
 
-{% code-tabs %}
-{% code-tabs-item title="customer.state.ts" %}
+{% code title="customer.state.ts" %}
 ```typescript
 export const customerByName = createSelector(
     selectIds,
@@ -53,8 +50,7 @@ export const customerByName = createSelector(
            .find(entity => entity.name === props.name);
 );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Follow the necessary precautions and best practices outlined in the ngrx.io documentation when using parameterized selectors. There are some important caveats to be aware of with their use. 
 

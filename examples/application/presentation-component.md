@@ -6,8 +6,8 @@ description: Bits of UI
 
 ### Customer List
 
-{% code-tabs %}
-{% code-tabs-item title="customer-list.component.ts" %}
+{% tabs %}
+{% tab title="customer-list.component.ts" %}
 ```typescript
 import { EventEmitter, Component, Input, Output } from '@angular/core';
 import { Customer } from '../models';
@@ -23,9 +23,9 @@ export class CustomersListComponent {
   @Output() deleted = new EventEmitter<Customer>();
 }
 ```
-{% endcode-tabs-item %}
+{% endtab %}
 
-{% code-tabs-item title="customer-list.component.html" %}
+{% tab title="customer-list.component.html" %}
 ```markup
 <div class="customer-list">
   <table>  
@@ -56,13 +56,13 @@ export class CustomersListComponent {
   </table>
 </div>
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
 
 ### Customer Detail
 
-{% code-tabs %}
-{% code-tabs-item title="customer-detail.component.ts" %}
+{% tabs %}
+{% tab title="customer-detail.component.ts" %}
 ```typescript
 import { EventEmitter, Component, Input, Output } from '@angular/core';
 import { Customer } from '../models';
@@ -78,9 +78,9 @@ export class CustomersListComponent {
   @Output() deleted = new EventEmitter<Customer>();
 }
 ```
-{% endcode-tabs-item %}
+{% endtab %}
 
-{% code-tabs-item title="customer-detail.component.html" %}
+{% tab title="customer-detail.component.html" %}
 ```markup
 <div class="customer-detail">
     <h2>{{customer.name}}</h2>
@@ -102,6 +102,6 @@ export class CustomersListComponent {
     <button (click)="deleted.emit(customer)">Delete</button>
 </div>
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
 

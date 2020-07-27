@@ -8,6 +8,7 @@ We have attempted to maintain compatibility with @ngrx/entity here, so we includ
 
 {% hint style="success" %}
 To name a few...
+
 * selectAll
 * selectEntities
 * selectIds
