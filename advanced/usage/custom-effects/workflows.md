@@ -18,18 +18,16 @@ Unlike our full order creation example, where we needed to track a group of enti
 
 We do not need any new custom actions for this use case, however we do need some effects. Let's say we have `Post`s that a user may `Like`. The actual likes are tracked as a join between the `postId` and the `userId` and are created and deleted as independent entities in the database. For simplicity of processing this data in our UI and UI performance, we track an `wasLiked` flag on our `Post` entities in state. 
 
-{% code-tabs %}
-{% code-tabs-item title="like.effects.ts" %}
+{% code title="like.effects.ts" %}
 ```typescript
 export class LikeEffects {
     constructor(private actions$: Actions, private store: Store<AppState>) {}
     
-    createSuccess$ = createEffect(() => 
-        this.actions$.pipe(
+    createSuccess$ = createEffect(
+        () => this.actions$.pipe(
             ofEntityType(Like, CreateSuccess),
-            map(action => action.entity),
-            withLatestFrom(this.store.pipe(select(allPosts))),
-            map(([like, allPosts]) => 
+            withLatestFrom(this.store.select(allPosts)),
+            map(([{entity: like}, allPosts]) => 
                 allPosts.find(post => post.id === like.postId)
             ),
             filter(post => !!post),
@@ -37,12 +35,11 @@ export class LikeEffects {
         )
     );
     
-    deleteSuccess$ = createEffect(() => 
-        this.actions$.pipe(
+    deleteSuccess$ = createEffect(
+        () => this.actions$.pipe(
             ofEntityType(Like, DeleteSuccess),
-            map(action => action.entity),
-            withLatestFrom(this.store.pipe(select(allPosts))),
-            map(([like, allPosts]) => 
+            withLatestFrom(this.store.select(allPosts)),
+            map(([{entity: like}, allPosts]) => 
                 allPosts.find(post => post.id === like.postId)
             ),
             filter(post => !!post),
@@ -51,8 +48,7 @@ export class LikeEffects {
     );
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 {% hint style="warning" %}
 Don't forget register your new `LikeEffects` class with the NgRx `EffectsModule`!
@@ -81,10 +77,7 @@ This is just a matter of code organization, and for simpler applications adding 
 ```typescript
 @Injectable({providedIn: 'root'})
 export class PostManager  {
-    constructor(
-        private store: Store<AppState>, 
-        private likeFacade: LikeFacade
-    ) {}
+    constructor(private likeFacade: LikeFacade) {}
     
     likePost(post: readonly Post, user: readonly User): void {
         this.likeFacade.create({ postId: post.id, userId: user.id});

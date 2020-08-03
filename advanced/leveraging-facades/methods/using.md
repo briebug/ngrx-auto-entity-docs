@@ -1,9 +1,8 @@
-# Using Facade Methods
+# Using Facade Activities
 
-To use one of these methods in your component, simply inject your facade class and call the method in the constructor, an ngOnInit or similar handler, or a custom handler:
+To use one of these activities in your component, simply inject your facade class and call the method in the constructor, an `ngOnInit` or similar handler, or a custom handler:
 
-{% code-tabs %}
-{% code-tabs-item title="customers.component.ts" %}
+{% code title="customers.component.ts" %}
 ```typescript
 export class CustomersComponent implements OnInit {    
     constructor(
@@ -26,15 +25,13 @@ export class CustomersComponent implements OnInit {
     }
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ### Use the Async Pipe!
 
 We highly recommend following NgRx best practices here to avoid subscribing directly to any observable on an entity facade. Instead, use the `async` pipe from Angular in your templates, and follow container/presenter model for your component architecture:
 
-{% code-tabs %}
-{% code-tabs-item title="customers.component.html" %}
+{% code title="customers.component.html" %}
 ```markup
 <div class="customers" *ngIf="customers.isLoading$ | async; else #loading">
     <app-customer-list 
@@ -50,6 +47,5 @@ We highly recommend following NgRx best practices here to avoid subscribing dire
     Loading customers...
 </ng-template>
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 

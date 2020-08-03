@@ -6,8 +6,7 @@ description: Create service for handling data interactions with server
 
 In our example we are creating a service for persisting entities via a simple REST API. As such, we've created a new **entity.service.ts** file and defined an injectable `EntityService` class.
 
-{% code-tabs %}
-{% code-tabs-item title="services/entity.service.ts" %}
+{% code title="services/entity.service.ts" %}
 ```typescript
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -55,8 +54,7 @@ export class EntityService implements IAutoEntityService<any> {
   }
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 {% hint style="success" %}
 It's important that each entity service implement the `IAutoEntity` interface. This interface supports the following methods:
@@ -83,6 +81,6 @@ To create an entity service, we must import the `IAutoEntityService` and `IEntit
 Finally, we implement each of the necessary methods for retrieving and persisting an entities.
 
 {% hint style="info" %}
-Your implementation may vary based on the method of persistence and the architecture of your API. Each method is _**optional**_, and may be implemented on an as-needed basis for each entity. We provide several options for loading data, as well as options for updating \(PATCH\) or replacing \(PUT\) entities. Implement what you need.
+Your implementation may vary based on the method of persistence and the architecture of your API. Each method is _**optional**_, and may be implemented on an as-needed basis for each entity. We provide several options for loading data, as well as options for updating \(PATCH\) or replacing \(PUT\) entities. Each method of an entity service also provides additional input parameters such as custom criteria. Implement and use what you need.
 {% endhint %}
 

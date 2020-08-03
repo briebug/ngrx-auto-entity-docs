@@ -2,21 +2,19 @@
 
 Selectors are generated for a given entity when you call `buildState` with a model class. The selectors may be initially destructured out of the object returned by buildState. From there, you may choose to simply export the entire selectors object, or further destructure the selectors and export only those you need to use:
 
-{% code-tabs %}
-{% code-tabs-item title="customer.state.ts" %}
+{% code title="customer.state.ts" %}
 ```typescript
 import {buildState} from '@briebug/ngrx-auto-entity';
 import {Customer} from 'models';
 
-const { selectors } = buildState(Customer);
-
-export const {
-    selectAll: allCustomers,
-    selectCurrentEntity: currentCustomer
-} = selectors;
+const { 
+    selectors: {
+        selectAll: allCustomers,
+        selectCurrentEntity: currentCustomer        
+    }
+} = buildState(Customer);
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ### Selectivity with Selectors
 

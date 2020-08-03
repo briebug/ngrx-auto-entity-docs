@@ -6,8 +6,8 @@ description: That junk don't belong here!
 
 Once you have enhanced your facade with functionality that belongs in the facade and not the component, it's time to clean up your component. Using the new functionality we have implemented in our customer facade, our component can become reduced to a simpler form:
 
-{% code-tabs %}
-{% code-tabs-item title="components/customer.component.ts" %}
+{% tabs %}
+{% tab title="components/customer.component.ts" %}
 ```typescript
 @Component({
   selector: 'app-customer',
@@ -32,9 +32,9 @@ export class CustomerComponent implements OnInit {
 }
 
 ```
-{% endcode-tabs-item %}
+{% endtab %}
 
-{% code-tabs-item title="components/customer.component.html" %}
+{% tab title="components/customer.component.html" %}
 ```markup
 <div class="customers">
   <div>
@@ -53,6 +53,6 @@ export class CustomerComponent implements OnInit {
   </div>
 </div>
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
 

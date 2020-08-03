@@ -6,7 +6,7 @@ description: Getting started with NgRx Auto-Entity is easy!
 
 If you are already familiar with NgRx, then adding Auto-Entity to your Angular application is very easy. There are four major steps required to add the module, create new entity state, and provide your entity services.
 
-### Step 1: Importing the Module
+## Step 1: Importing the Module
 
 First things first, you must bring in the `NgrxAutoEntityModule` into your app module and call the `forRoot()` method to configure the library.
 
@@ -25,14 +25,14 @@ import { NgrxAutoEntityModule } from '@briebug/ngrx-auto-entity';
 export class AppModule {}
 ```
 
-### Step 2: Creating your Model and Entity Service
+## Step 2: Creating your Model and Entity Service
 
-#### Entity Models
+### Entity Models
 
 Before you can actually create your state, you will need to create your entity models, as you would normally do. Auto-Entity requires two small changes to how you create models for NgRx.
 
-{% code-tabs %}
-{% code-tabs-item title="models/customer.model.ts" %}
+{% tabs %}
+{% tab title="models/customer.model.ts" %}
 ```typescript
 import { Key } from '@briebug/ngrx-auto-entity';
 
@@ -42,17 +42,17 @@ export class Customer {
     address: Address;
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
 
 First, your models must be classes rather than interfaces \(see [advanced documentation](../advanced/usage/paradigm/models.md) for more info.\) Second, your entity identity must be decorated with the `@Key` directive. For entities with composite keys, simply decorate each property that is part of the key.
 
-#### Entity Services
+### Entity Services
 
 You will also need to create an entity service to handle CRUD behavior for each entity. Entity services may be shared if your API uses a common pattern. Otherwise you may need to implement a service for each entity as you usually do with NgRx.
 
-{% code-tabs %}
-{% code-tabs-item title="services/entity.service.ts" %}
+{% tabs %}
+{% tab title="services/entity.service.ts" %}
 ```typescript
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -100,8 +100,8 @@ export class EntityService implements IAutoEntityService<any> {
   }
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
 
 In the example above we have a simple shared entity service that supports a basic REST API where each entity conforms to a simple pattern:
 
@@ -109,12 +109,12 @@ In the example above we have a simple shared entity service that supports a basi
 
 Auto-Entity provides basic entity metadata, such as the model name, in the `entityInfo` parameter of each entity service method.
 
-### Step 3: Providing your Services
+## Step 3: Providing your Services
 
 Once you have created an entity service or services, you will need to provide them in your app module. With Auto-Entity, services must be provided in a slightly different manner than normal, to ensure that Auto-Entity is able to find entity services dynamically.
 
-{% code-tabs %}
-{% code-tabs-item title="app.module.ts" %}
+{% tabs %}
+{% tab title="app.module.ts" %}
 ```typescript
 import { NgrxAutoEntityModule } from '@briebug/ngrx-auto-entity';
 import { Customer, Order } from './models';
@@ -136,17 +136,17 @@ import { EntityService } from './services';
 })
 export class AppModule {}
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
 
 In our example here, we are sharing a single entity service, `EntityService`, for all entities. We must `provide` each model and `useClass` to specify the service class to use.
 
-### Step 4: Adding your States
+## Step 4: Adding your States
 
 Finally, now that you have your models and have provided your entity services, you need to build your state for each model. Add a new state file for each model following the pattern depicted here:
 
-{% code-tabs %}
-{% code-tabs-item title="state/customer.state.ts" %}
+{% tabs %}
+{% tab title="state/customer.state.ts" %}
 ```typescript
 import { buildState, IEntityState } from '@briebug/ngrx-auto-entity';
 import { Customer } from '../models'
@@ -158,13 +158,13 @@ export function customerReducer(state = initialState): IEntityState<Customer> {
   return state;
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
 
 Finally, include your entity states in the AppState interface, and your stub reducers in the action reducer map:
 
-{% code-tabs %}
-{% code-tabs-item title="state/app.state.ts" %}
+{% tabs %}
+{% tab title="state/app.state.ts" %}
 ```typescript
 import { IEntityState } from '@briebug/ngrx-auto-entity';
 import { Customer, Order } from 'models';
@@ -184,8 +184,8 @@ export const appReducer: ActionReducerMap<AppState> = {
   order: orderReducer
 };
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
 
 With that, you are ready to start using your automatic entity state! Continue on to the next section to learn how.
 

@@ -6,8 +6,7 @@ description: Adding NgRx & Auto-Entity to an App
 
 If you have not used NgRx before, and need to start from scratch, this guide should get you going. Let's start by creating a state module. We recommend creating this module in a root **state** directory, located at src/app/state. In this directory, create a new **state.module.ts** file:
 
-{% code-tabs %}
-{% code-tabs-item title="state.module.ts" %}
+{% code title="state.module.ts" %}
 ```typescript
 import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
@@ -23,8 +22,7 @@ import { EntityOperators } from '@briebug/ngrx-auto-entity';
 })
 export class StateModule {}
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Import the NgRx `StoreModule` and `EffectsModule` as well as the Auto-Entity `NgrxAutoEntityModule`. Make sure you call the `.forRoot()` initializer on each of them to ensure they are properly imported. It is important that the NgrxAutoEntityModule be brought in after the EffectsModule, as this ensures all automatic effects will be properly registered.
 

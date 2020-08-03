@@ -18,5 +18,7 @@ Where we save you time is by eliminating the need to implement unique sets of **
 
 Further, Auto-Entity generates pre-fabricated **Facades** around your entity state, allowing you to _extract_ all `@ngrx` and other state related code from your components, _encapsulate_ them in a facade layer that presents a much _simpler_, more _logical_ and easier to comprehend and use API for your entities.
 
+![](.gitbook/assets/screen-shot-2019-05-10-at-11.16.09-am.png)
+
 
 

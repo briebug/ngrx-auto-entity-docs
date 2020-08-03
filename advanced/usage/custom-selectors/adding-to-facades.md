@@ -16,42 +16,35 @@ For parameterized selectors, an accessor method may be more appropriate. If howe
 
 Continuing on with our `firstCustomer` selector from the previous section, adding this to a `CustomerFacade` should be very strait forward:
 
-{% code-tabs %}
-{% code-tabs-item title="customer.facade.ts" %}
+{% code title="customer.facade.ts" %}
 ```typescript
 import {firstCustomer, CustomerFacadeBase} from 'state/customer.state';
 import {Customer} from 'models';
 
 export class CustomerFacade extends CustomerFacadeBase {
+    firstCustomer$ = this.store.pipe(select(firstCustomer));
+    
     constructor(store: Store<AppState>) {
         super(Customer, store);
     }
-    
-    get firstCustomer$(): Observable<Customer> {
-        return this.store.pipe(select(firstCustomer));
-    }
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ### Adding a Custom Accessor Method
 
 With a parameterized selector like our prior `customerById` example, we should use a method instead of a property to allow passing in the id of the customer to select:
 
-{% code-tabs %}
-{% code-tabs-item title="customer.facade.ts" %}
+{% code title="customer.facade.ts" %}
 ```typescript
 import {firstCustomer, customerByName, CustomerFacadeBase} from 'state/customer.state';
 import {Customer} from 'models';
 
 export class CustomerFacade extends CustomerFacadeBase {
+    firstCustomer$ = this.store.pipe(select(firstCustomer));
+
     constructor(store: Store<AppState>) {
         super(Customer, store);
-    }
-    
-    get firstCustomer$(): Observable<Customer> {
-        return this.store.pipe(select(firstCustomer));
     }
     
     customerByName$(name: string): Observable<Customer> {
@@ -59,6 +52,5 @@ export class CustomerFacade extends CustomerFacadeBase {
     }
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 

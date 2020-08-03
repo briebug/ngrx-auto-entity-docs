@@ -10,7 +10,7 @@ The `LoadRange` generic action supports a more modern approach to handling very 
 
 #### Augmentation of Existing State
 
-When loading a range, unlike loading a page, any newly loaded entities for this type will be **merged** into existing state, preserving any previously loaded entities and including any newly loaded entities. As with paged loads, this ensures that bandwidth is used efficiently, however keep in mind that for very large data sets, continuous loading of subsequent ranges could eventually require significant amounts of browser memory to store all the information in state. Further, due to the `pure` \(side-effect free\) nature by which new versions of state must be created with @ngrx, updating state with a large volume of previously loaded entities may start to become a lengthy operation.
+When loading a range, unlike loading a page, any newly loaded entities for this type will be **concatenated** into existing state, preserving any previously loaded entities and including any newly loaded entities. As with paged loads, this ensures that bandwidth is used efficiently, however keep in mind that for very large data sets, continuous loading of subsequent ranges could eventually require significant amounts of browser memory to store all the information in state. Further, due to the `pure` \(side-effect free\) nature by which new versions of state must be created with @ngrx, updating state with a large volume of previously loaded entities may start to become a lengthy operation.
 
 ### Ranged Load Implementation
 
@@ -26,7 +26,9 @@ When implementing your entity service, you will have access to the `Range` objec
 loadRange(entityInfo: IEntityInfo, {first, last}: Range, criteria?: any)
     : Observable<IEntityWithRangeInfo<Customer>> {
         return this.http.get<Customer[]>(
-            `${environment.apiBaseUrl}/api/v1/customers?first=${first}&last=${last}`
+            `${environment.apiBaseUrl}/api/v1/customers` { 
+                params: {first, last}
+            } 
         ).pipe(
             map(customers => ({
                 rangeInfo: {
@@ -39,7 +41,7 @@ loadRange(entityInfo: IEntityInfo, {first, last}: Range, criteria?: any)
     }
 ```
 
-Note the use of `pipe()` on the `http` call here, and the transformation of the response. Also not the return type of the `loadRange` method.  NgRx Auto-Entity requires additional meta-data about what range was loaded as well as the total number of entities that may be ranged through, in order to store that information in state and make it available to components and your UI \(for proper handling of infinite scrolling behavior, for example\).
+Note the use of `pipe()` on the `http` call here, and the transformation of the response. Also not the return type of the `loadRange` method.  NgRx Auto-Entity _**requires**_ additional meta-data about what range was loaded as well as the total number of entities that may be ranged through, in order to store that information in state and make it available to components and your UI \(for proper handling of infinite scrolling behavior, for example\).
 
 ### Entities with Range Info
 

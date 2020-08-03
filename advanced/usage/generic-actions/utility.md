@@ -4,9 +4,9 @@ description: 'Clearing, Selecting & Deselecting, Oh my!'
 
 # Utility Actions
 
-Beyond the core CURDL actions, Auto-Entity also provides a few utility actions that cover other common entity-state related functionality. This includes an action to clear the state for a given model, as well as select and deselect a particular entity for a given model by reference or key. 
+Beyond the core CUURDL actions, Auto-Entity also provides a few utility actions that cover other common entity-state related functionality. This includes an action to clear the state for a given model, as well as select and deselect a particular entity for a given model by reference or key. 
 
-Recently added in v0.2 is the ability to select and deselect a set of entities for a given model by references or keys.
+Recently added in v0.2 is the ability to select and deselect a set of entities for a given model by references or keys. Added in v0.5 is the ability to track and update copies of entities for active editing.
 
 {% hint style="success" %}
 * **Clear**: Empties the state for a given model
@@ -18,6 +18,9 @@ Recently added in v0.2 is the ability to select and deselect a set of entities f
 * **DeselectMany**: Deselect the specified entities from current entity set
 * **DeselectManyByKeys**: Deselect entities who's keys match the specified keys
 * **DeselectAll**: Deselect all entities in current entity set
+* **Edit**: Tracks a copy of an entity in state for editing
+* **Change**: Updates an edit copy of an entity
+* **EndEdit**: Removes an edit copy from state
 {% endhint %}
 
 ### Dealing with Entity Keys

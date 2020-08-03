@@ -10,7 +10,7 @@ Loading pages of data, rather than loading complete sets of data, is often essen
 
 #### Replacement of Existing State
 
-When loading a page, any previously loaded entities for this type will be **replaced** in by the new page of entities retrieved. This ensures that bandwidth and browser memory space is used efficiently, and that memory is not wasted trying to store an ever-growing number of entities as a user cycles through pages in your UI. 
+When loading a page, any previously loaded entities for this type will be **replaced** in by the new page of entities retrieved. This ensures that bandwidth and browser memory space are used efficiently, and that memory is not wasted trying to store an ever-growing number of entities as a user cycles through pages in your UI. 
 
 ### Paged Load Implementation
 
@@ -30,7 +30,9 @@ loadPage(entityInfo: IEntityInfo, {page=1, size=25}: Page, criteria?: any)
         const take = size;
         
         return this.http.get<Customer[]>(
-            `${environment.apiBaseUrl}/api/v1/customers?skip=${skip}&take=${take}`
+            `${environment.apiBaseUrl}/api/v1/customers`, {
+                params: { skip, take }
+            }
         ).pipe(
             map(customersMeta => ({
                 pageInfo: {
@@ -46,7 +48,7 @@ loadPage(entityInfo: IEntityInfo, {page=1, size=25}: Page, criteria?: any)
     }
 ```
 
-Note the use of `pipe()` on the `http` call here, and the transformation of the response. Also not the return type of the `loadPage` method.  NgRx Auto-Entity requires additional meta-data about which page was loaded as well as the total number of entities that may be paged through, in order to store that information in state and make it available to components and your UI \(for proper rendering of paging controls, for example\).
+Note the use of `pipe()` on the `http` call here, and the transformation of the response. Also note the return type of the `loadPage` method.  NgRx Auto-Entity _**requires**_ additional meta-data about which page was loaded as well as the total number of entities that may be paged through, in order to store that information in state and make it available to components and your UI \(for proper rendering of paging controls, for example\).
 
 ### Entities with Page Info
 
@@ -85,11 +87,15 @@ loadPage(entityInfo: IEntityInfo, {page=1, size=25}: Page, criteria?: any)
         const take = size;
         
         return this.http.get<Customer[]>(
-            `${environment.apiBaseUrl}/api/v1/customers?skip=${skip}&take=${take}`
+            `${environment.apiBaseUrl}/api/v1/customers`, {
+                params: { skip, take }
+            }
         ).pipe(
             withLatestFrom(
                 this.http.get<{totalRecords: number}>(
-                    `${environment.apiBaseUrl}/api/v1/customers?totalOnly=true`
+                    `${environment.apiBaseUrl}/api/v1/customers`, {
+                        params: { totalOnly: true }
+                    }
                 );
             )
             map(([customers, total]) => ({
@@ -113,21 +119,25 @@ loadPage(entityInfo: IEntityInfo, {page=1, size=25}: Page, criteria?: any)
         const skip = (page-1) * size;
         const take = size;
         
-        return this.http.get<HttpResponse<Customer[]>>(
-            `${environment.apiBaseUrl}/api/v1/customers?skip=${skip}&take=${take}`
+        return this.http.get<Customer[]>(
+            `${environment.apiBaseUrl}/api/v1/customers`, {
+                params: { skip, take },
+                observe: 'response'
+            }
         ).pipe(
             map(response => ({
                 customers: response.body,
-                contentRange: response.headers.has('Content-Range') ? 
+                contentRange: response.headers.has('Content-Range')
                     // <units> <start>-<end>/<size>
                     // entities 0-25/102942
                     // records 25-50/102942
-                    response.headers.get('Content-Range').split('/')[1] : 0
+                    ? +response.headers.get('Content-Range').split('/')[1] 
+                    : size // default to page size if no total returned
             }),
             map(({customers, total}) => ({
                 pageInfo: {
                     page: { page, size },
-                    totalCount: +total
+                    totalCount: total
                 },
                 entities: customers
             }))

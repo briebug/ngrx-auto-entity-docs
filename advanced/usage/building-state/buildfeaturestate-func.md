@@ -7,22 +7,22 @@ description: Lazy Boilerplate...
 The lazy loaded feature module counterpart to `buildState` is, of course, `buildFeatureState`. This function is similar to `buildState`, however it is not identical and has one nuanced change:
 
 ```typescript
-function buildFeatureState<
+export const buildFeatureState = <
   TState extends IEntityState<TModel>, 
   TParentState, 
-  TModel
+  TModel, 
+  TExtra
 >(
-  type: ITModelClass<TModel>,
-  featureStateName: string,
+  type: IModelClass<TModel>,
+  featureStateName: NonNullable<string>,
   selectParentState: MemoizedSelector<object, TParentState>,
-  extraInitialState?: any
-): IModelState<TParentState, TState, TModel>;
+  extraInitialState?: TExtra
+): IModelState<TParentState, TState, TModel, TExtra>
 ```
 
 Two additional arguments must be passed. The second is the name of the feature state, the same name you specify in the `createFeatureSelector` call. The third argument that must be passed to `buildFeatureState` is the feature selector for the feature state. The use case would be as follows:
 
-{% code-tabs %}
-{% code-tabs-item title="feature.state.ts" %}
+{% code title="feature.state.ts" %}
 ```typescript
 import { createFeatureSelector } from '@ngrx/store';
 import { FeatureEntity } from '../models';
@@ -36,11 +36,9 @@ export const featureEntityState = createFeatureSelector<IFeatureState>(
     FEATURE_NAME
 );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-{% code-tabs %}
-{% code-tabs-item title="featureEntity.state.ts" %}
+{% code title="featureEntity.state.ts" %}
 ```typescript
 import { buildFeatureState } from '@briebug/ngrx-auto-entity';
 import { featureEntityState, FEATURE_NAME } from './feature.state';
@@ -52,8 +50,7 @@ export const { initialState, selectors } = buildFeatureState(
     featureEntityState
 );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Building feature state otherwise works the same as the standard `buildState` function does. It also provides the entityState for the feature entity, a stub reducer and a facade class. 
 

@@ -10,27 +10,36 @@ When developing complex applications, sometimes it may help to "bundle" multiple
 
 A simple use case might be the creation of an `Order` that contains `LineItem`s. Depending on the nature of the backend system you must work with, it may be that you must first create an empty order which returns its key, then populate that order, for which you now know the key, with items that relate back to the order. You may have certain timing issues here that are not necessarily easy to solve with the asynchronous nature of the web and NgRx.
 
+{% hint style="info" %}
+NgRx Auto-Entity 0.5 introduced the concept of action correlation. By attaching a unique correlation id to every auto-entity initiating action, and threading that same correlation id through each result action, correlation between initiation and result can be achieved.
+
+This allows complex scenarios that require proper coordination of multiple steps or stages to be accomplished. Even when such scenarios dictate that complex workflows be broken up across many effects.
+{% endhint %}
+
 ### Full Order Creation Action
 
-Start by creating a custom action, `createFullOrder`. This action will require both an Order entity as well as an array of `LineItem` entities. We only need this one action, as we will ultimately leverage existing Auto-Entity actions down the line. Lets just put this new action in the state file for our order state:
+Start by creating a custom action, `createFullOrder`. This action will require both an `Order` entity as well as an array of `LineItem` entities. We only need this one action, as we will ultimately leverage existing Auto-Entity actions down the line. Lets just put this new action in the state file for our order state:
 
-{% code-tabs %}
-{% code-tabs-item title="state/order.state.ts" %}
+{% code title="state/order.state.ts" %}
 ```typescript
 // ... other order state config...
 
 export const createFullOrder = createAction(
     '[Orders] Create Full Order',
-    props<{ order: Readonly<Order>, lineItems: ReadonlyArray<LineItem> }>()
+    props<{ 
+        order: Readonly<Order>, 
+        lineItems: ReadonlyArray<LineItem>,
+        correlationId: string
+    }>()
 );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
+
+Note that this action includes a third property: correlationId. This is a unique identifier \(say a uuid\) that allows us to correlate this action with subsequent auto-entity actions dispatched across many effects.
 
 With this action now in hand, we want to update our Order facade to support creation of a full order with its line items. We can simple add a new method to our facade that will facilitate this new behavior:
 
-{% code-tabs %}
-{% code-tabs-item title="facades/order.facade.ts" %}
+{% code title="facades/order.facade.ts" %}
 ```typescript
 import { createFullOrder, OrderFacadeBase } from '../state/order.state';
 
@@ -43,12 +52,15 @@ export class OrderFacade extendes OrderFacadeBase {
         order: Readonly<Order>, 
         lineItems: ReadonlyArray<LineItem>
     ): void {
-        this.store.dispatch(createFullOrder({order, lineItems});
+        this.store.dispatch(createFullOrder({
+            order, 
+            lineItems, 
+            correlationId: uuid()
+        });
     }
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ### Order Creation Custom Effect
 
@@ -56,37 +68,45 @@ In order to leverage NgRx Auto-Entity here, we will need to create some effects 
 
 This order of execution is important as creation of a LineItem entity requires knowledge of the Order they belong to, and the key for this order is only known once it is created. Achieving it can be a little tricky, but it tends to be easier in an effect than elsewhere:
 
-{% code-tabs %}
-{% code-tabs-item title="state/order.effects.ts" %}
+{% code title="state/order.effects.ts" %}
 ```typescript
 export class OrderEffects {
     constructor(private actions$: Actions, private store: Store<AppState>) {}
     
-    createFullOrder$ = createEffect(() => 
-        this.actions$.pipe(
-            ofType(createFullOrder.type),
-            tap(({order}) => this.store.dispatch(new Create(Order, order))),
-            mergeMap(({order, lineItems}) => 
-                this.actions$.pipe(
-                    ofEntityType(Order, EntityActionTypes.CreateSuccess),
-                    filter(action => action.entity.poNumber === order.poNumber),
-                    map(action => ({ order: action.entity, lineItems })),
-                    tap(({order, lineItems}) => 
-                        lineItems.reduce((_, item) => 
-                            this.store.dispatch(new Create(LineItem, {
-                                ...item,
-                                orderId: order.id
-                            }))
-                        )
-                    )
+    initiateFullOrderCreation$ = createEffect(
+        () => this.actions$.pipe(
+            ofType(createFullOrder),
+            map(({order}) => new Create(Order, order)))
+        )
+    );
+    
+    continueOrderLineItemCreation$ = createEffect(
+        () => combineLatest([
+            this.actions$.pipe(
+                ofType(createFullOrder)
+            ),
+            this.actions$.pipe(
+                ofEntityType(Order, EntityActionTypes.CreateSuccess)
+            )
+        ]).pipe(
+            filter(([{correlationId}, {correlationId: createOrderCID}]) =>
+                correlationId === createOrderCID
+            ),
+            map(([{lineItems, correlationId}, {entity}]) => ({
+                order: entity,
+                lineItems,
+                correlationId
+            })),
+            concatMap(({order, lineItems}) =>
+                lineItems.reduce((_, item) => 
+                    new Create(LineItem, item, undefined, correlationId)
                 )
             )
         )
-    , {dispatch: false});
+    );
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 {% hint style="warning" %}
 Don't forget register your new `OrderEffects` class with the NgRx `EffectsModule`!

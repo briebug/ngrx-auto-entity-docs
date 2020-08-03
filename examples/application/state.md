@@ -4,10 +4,10 @@ description: Things we Need
 
 # State
 
-### States
+## States
 
-{% code-tabs %}
-{% code-tabs-item title="state/app.state.ts" %}
+{% tabs %}
+{% tab title="state/app.state.ts" %}
 ```typescript
 import { IEntityState } from '@briebug/ngrx-auto-entity';
 import { ActionReducerMap } from '@ngrx/store';
@@ -28,9 +28,9 @@ export function appReducer: ActionReducerMap<AppState> = {
     order: orderReducer
 };
 ```
-{% endcode-tabs-item %}
+{% endtab %}
 
-{% code-tabs-item title="state/customer.state.ts" %}
+{% tab title="state/customer.state.ts" %}
 ```typescript
 import { buildState, IEntityState } from '@briebug/ngrx-auto-entity';
 import { createReducer } from '@ngrx/store';
@@ -42,9 +42,9 @@ export function customerReducer(state = initialState): IEntityState<Customer> {
   return state;
 }
 ```
-{% endcode-tabs-item %}
+{% endtab %}
 
-{% code-tabs-item title="state/order.state.ts" %}
+{% tab title="state/order.state.ts" %}
 ```typescript
 import { buildState, IEntityState } from '@briebug/ngrx-auto-entity';
 import { createReducer } from '@ngrx/store';
@@ -55,15 +55,13 @@ export const { initialState: orderInitialState, facade: OrderFacadeBase } = buil
 export function orderReducer(state = initialState): IEntityState<Order> {
   return state;
 }
-
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
 
-### Module
+## Module
 
-{% code-tabs %}
-{% code-tabs-item title="state/state.module.ts" %}
+{% code title="state/state.module.ts" %}
 ```typescript
 import { NgModule } from '@angular/core';
 import { NgrxAutoEntityModule } from '@briebug/ngrx-auto-entity';
@@ -88,19 +86,16 @@ import { appReducer } from './app.state';
 })
 export class StateModule {}
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
-#### Barrel
+### Barrel
 
-{% code-tabs %}
-{% code-tabs-item title="state/index.ts" %}
+{% code title="state/index.ts" %}
 ```typescript
 export * from './app.state';
 export * from './customer.state';
 export * from './order.state';
 export * from './state.module';
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 

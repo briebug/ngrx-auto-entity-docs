@@ -1,13 +1,13 @@
-# The Interface: Properties
+# The Interface: Selections
 
 Prefabricated facades in NgRx Auto-Entity expose all the necessary properties and methods to allow you to fully leverage all of the state, actions and selectors Auto-Entity manages. Once you have extended a class from the base facade class, you may leverage all of this functionality without any additional effort.
 
-### Observable Data Properties
+### Selections \(Observable Data Properties\)
 
-Each entity facade exposes a number of properties that wrap NgRx state `selections`, exposing the streaming data within. Each of these properties returns and Observable of the appropriate type based on the state Auto-Entity tracks. The available properties on every entity facade include the following:
+Each entity facade exposes a number of properties that wrap NgRx state `selections`, exposing the streaming data within. Each of these properties returns and Observable of the appropriate type based on the state Auto-Entity tracks. We call these **selections.** The available properties on every entity facade include the following:
 
 {% hint style="success" %}
-**all$**: Observable&lt;Model\[\]&gt;; Array of entity objects in state  
+**all$**: Observable&lt;TModel\[\]&gt;; Array of entity objects in state  
 **entities$**: Observable&lt;IEntityDictionary&lt;TModel&gt;&gt;; Map of ids to entity objects  
 **ids$**: Observable&lt;EntityIdentity\[\]&gt;; Array of entity identities in state   
 **total$**: Observable&lt;number&gt;; Total umber of entities in state
@@ -22,12 +22,16 @@ Each entity facade exposes a number of properties that wrap NgRx state `selectio
 **currentRange$**: Observable&lt;Range&gt;; Info about the current range of entities in state  
 **totalPageable$**: Observable&lt;number&gt;; Total number of entities that can be paged
 
+**edited$**: Observable&lt;Partial&lt;TModel&gt;&gt;; The currently edited entity \(partial\)  
+**isDirty$**: Observable&lt;boolean&gt;; Flag indicating if there have been changes to edited entity
+
 **isLoading$**: Observable&lt;boolean&gt;; Flag indicating if entities are currently loading  
 **isSaving$**: Observable&lt;boolean&gt;; Flag indicating if entities are currently saving  
 **isDeleting$**: Observable&lt;boolean&gt;; Flag indicating if entities are currently deleting
 
 **loadedAt$**: Observable&lt;Date&gt;; Timestamp of last load  
 **savedAt$**: Observable&lt;Date&gt;; Timestamp of last save  
+**createdSt$**: Observable&lt;Date&gt;; Timestamp of last creation  
 **deletedAt$**: Observable&lt;Date&gt;; Timestamp of last delete
 {% endhint %}
 
@@ -36,14 +40,14 @@ Each entity facade exposes a number of properties that wrap NgRx state `selectio
 All of these properties are encapsulating functionality you may already be familiar with. In the past with plain old NgRx, you might have done something like the following:
 
 ```typescript
-this.customers$ = this.store.pipe(select(allCustomers));
+this.customers$ = this.store.select(allCustomers);
 ```
 
 This is in fact what all of the entity facade properties are doing for you. We simplify the above repetitive procedure so you may simply access a property rather than have to bring in the store, pipe and select yourself:
 
 ```typescript
 get all$(): Observable<TModel> {
-    return this.store.pipe(select(selectAll));
+    return this.store.select(selectAll);
 }
 ```
 
@@ -60,8 +64,4 @@ this.customers$ = this.customerFacade.all$.pipe(
     )
 );
 ```
-
-{% hint style="danger" %}
-NOTICE: The current version \(0.1.1\) of NgRx Auto-Entity uses simple property names such as `all` or `current` without a $ postfixed on the end. In order to maintain consistency with standard streaming identifier names in reactive angular applications, future version of Auto-Entity will be renaming all prefabricated facade properties to include the $ postfix. This change will start with version 0.2.x.
-{% endhint %}
 

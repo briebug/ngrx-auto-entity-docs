@@ -10,49 +10,49 @@ When the need arises to create a **custom action** & **custom effects**, Auto-En
 
 As a simple example, you may wish to create a custom action for handling type-ahead lookups that search a given entity. 
 
-{% code-tabs %}
-{% code-tabs-item title="customer.actions.ts" %}
+{% code title="customer.actions.ts" %}
 ```typescript
 export const SearchCustomers = createAction(
   '[Customer] Typeahead Search',
   props<{criteria: string }>()
 );
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 ### Custom Effect
 
 You could then implement your own effect for handling this action to ensure the proper implementation and behavior:
 
-{% code-tabs %}
-{% code-tabs-item title="customer.effects.ts" %}
+{% code title="customer.effects.ts" %}
 ```typescript
 import {Actions, createEffect} from '@ngrx/effects';
 import {LoadAllSuccess, LoadAllFailure} from '@briebug/ngrx-auto-entity';
 import {SearchCustomers} from 'state/customer.actions';
 
 export class CustomerEffects {
-    searchCustomers$ = createEffect(() => this.actions$.pipe(
-        ofType(SearchCustomers),
-        map(action => action.criteria),
-        switchMap(criteria => 
-            this.customerService.search(criteria).pipe(
-                map(result => new LoadAllSuccess(Customer, result)),
-                catchError(err => of(new LoadAllFailure(Customer, err)))
-            ))
-    ));
+    searchCustomers$ = createEffect(
+        () => this.actions$.pipe(
+            ofType(SearchCustomers),
+            map(action => action.criteria),
+            switchMap(criteria => 
+                this.customerService.search(criteria).pipe(
+                    map(result => new LoadAllSuccess(Customer, result)),
+                    catchError(err => of(new LoadAllFailure(Customer, err)))
+                )
+            )
+        ),
+        { resubscribeOnError: false }
+    );
     
     constructor(private actions$: Actions, private customerService: CustomerService) {}
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 In this case, we need `switchMap` semantics...that is, we wish to cancel any previous requests that may have stale information in order to utilize the most up to date search criteria the user may have entered. 
 
 {% hint style="info" %}
-By default, Auto-Entity uses `mergeMap` for all effects, which may not always be the most appropriate mapper for the use case.
+By default, Auto-Entity uses `mergeMap` for all effects, which may not always be the most appropriate mapper for the use case. The default use of `mergeMap` ensures that all entity actions for any entity dispatched within the store may operate concurrently, without queueing up, blocking, canceling, or dropping actions for other entities. 
 {% endhint %}
 
 ### Integrate into Auto-Entity Managed State

@@ -14,15 +14,18 @@ export interface IEntityState<TModel> {
   ids: EntityIdentity[];
   currentEntityKey?: EntityIdentity;
   currentEntitiesKeys?: EntityIdentity[];
+  editedEntity?: Partial<TModel>;
+  isDirty?: boolean;
   currentPage?: Page;
   currentRange?: Range;
   totalPageableCount?: number;
   isLoading?: boolean;
   isSaving?: boolean;
   isDeleting?: boolean;
-  loadedAt?: Date;
-  savedAt?: Date;
-  deletedAt?: Date;
+  loadedAt?: number;
+  savedAt?: number;
+  createdAt?: number;
+  deletedAt?: number;
 }
 ```
 
@@ -30,7 +33,7 @@ While our internal types are named slightly differently, the structure of our `I
 
 ### Additional State
 
-You may notice that we track a lot of additional but optional state as well. This includes the current entity, information about the current page or range loaded into state, as well as various flags and timestamps. 
+You may notice that we track a variety of additional but optional state as well. This includes the current entity, information about the current page or range loaded into state, as well as various flags and timestamps. 
 
 {% hint style="info" %}
 This interface is fundamental to all entities who's state is managed by NgRx Auto-Entity. You can and should use this interface wherever a state interface is required, such as root or feature state interfaces that will be used in a reducer map. 

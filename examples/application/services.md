@@ -4,8 +4,8 @@ description: One Service to Rule them All
 
 # Services
 
-{% code-tabs %}
-{% code-tabs-item title="services/entity.service.ts" %}
+{% tabs %}
+{% tab title="services/entity.service.ts" %}
 ```typescript
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -88,12 +88,12 @@ export class EntityService implements IAutoEntityService<any> {
 }
 
 ```
-{% endcode-tabs-item %}
+{% endtab %}
 
-{% code-tabs-item title="services/index.ts" %}
+{% tab title="services/index.ts" %}
 ```typescript
 export * from './entity.service';
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endtab %}
+{% endtabs %}
 

@@ -89,11 +89,11 @@ ISO start date of order placement
 {% endapi-method-parameter %}
 
 {% api-method-parameter name="dateFullfilled" type="string" required=false %}
-ISO start date of order fullfillment
+ISO start date of order fulfillment
 {% endapi-method-parameter %}
 
 {% api-method-parameter name="wasFullfilled" type="boolean" required=false %}
-Flag indicating whether orders should be fullfilled or not
+Flag indicating whether orders should be fulfilled or not
 {% endapi-method-parameter %}
 {% endapi-method-query-parameters %}
 {% endapi-method-request %}
@@ -124,7 +124,7 @@ We might handle these optional criteria with a more advanced implementation of o
 this.ordersFacade.loadMany({ 
     customerId: 1, 
     datePlaced: '2019-06-01', 
-    wasFullfilled: true 
+    wasFulfilled: true 
 });
 ```
 
@@ -134,21 +134,20 @@ And our custom `loadMany` implementation in our entity service:
 interface LoadCriteria {
     customerId: number;
     datePlaced?: string;
-    dateFullfilled?: string;
-    wasFullfilled?: boolean;
+    dateFulfilled?: string;
+    wasFulfilled?: boolean;
 }
 
 loadMany(entityInfo: IEntityInfo, criteria?: LoadCriteria): Observable<Order[]> {
-    let url = `${environment.apiBaseUrl}/api/v1/customers/{criteria.customerId}/orders`;
-    if (criteria.datePlaced || criteria.dateFullfilled || criteria.wasFullfilled) {
-        url = `${url}?`;
-        url = criteria.datePlaced ? `${url}datePlaced=${criteria.datePlaced}&` : url;
-        url = criteria.dateFullfilled ? `${url}dateFullfilled=${criteria.dateFullfilled}&` : url;
-        url = criteria.wasFullfilled ? `${url}wasFullfilled=${criteria.wasFullfilled}` : url;
-    }
-    return this.http.get<Order[]>(url);
+    let url = `${environment.apiBaseUrl}/api/v1/customers/${criteria.customerId}/orders`;
+    return this.http.get<Order[]>(url, {
+        params: {
+            ...criteria, // Provide the rest of the criteria as query parameters
+            customerId: undefined // Strip the id, as it is in the url
+        }
+    });
 }
 ```
 
-With custom criteria, we can handle any kind of backend API, even complex ones with custom and dynamic parameters. Note the use of `loadMany` here instead of `loadAll`...this is an important distinction with partial data loads vs. full data loads, which I'll be going into more detail on in the next section.
+With **custom criteria**, we can handle any kind of backend API, even complex ones with custom and dynamic parameters. Note the use of `loadMany` here instead of `loadAll`...this is an important distinction with partial data loads vs. full data loads, which we will be going into more detail on in the next section.
 

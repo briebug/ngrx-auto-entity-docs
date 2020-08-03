@@ -2,8 +2,7 @@
 
 When it comes to using custom selectors, they are used the same as any prefabricated facade property or method. As a quick example, our prior two custom selections added to our `CustomerFacade` may be used as so:
 
-{% code-tabs %}
-{% code-tabs-item title="customer-by-name.component.ts" %}
+{% code title="customer-by-name.component.ts" %}
 ```typescript
 @Component({
   selector: 'app-customer-by-name',
@@ -14,14 +13,19 @@ export class CustomerByNameComponent implements OnInit {
   customer$: Observable<Customer>;
 
   constructor(
-    private activatedRoute: ActivatedRoute, 
-    private customerFacade: CustomerFacade
+    private route: ActivatedRoute, 
+    private customers: CustomerFacade
   ) {}
 
   ngOnInit() {
-    this.customerFacade.loadAll(); // This may be called elsewhere instead of here
+    // This may be called elsewhere instead of here
+    // i.e. dispatch a page loading or initializing action and 
+    // load customers in an effect
+    this.customers.loadAll(); 
   
-    this.customer$ = this.activatedRoute.paramMap.pipe(
+    // This is component specific as it requires extracting information
+    // from the currently activated route, which is context-specific
+    this.customer$ = this.route.paramMap.pipe(
       filter(params => params.has('name')),
       map(params => params.get('name')),
       switchMap(name => this.customerFacade.customerByName$(name))
@@ -29,6 +33,5 @@ export class CustomerByNameComponent implements OnInit {
   }
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 

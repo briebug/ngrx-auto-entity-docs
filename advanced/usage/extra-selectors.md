@@ -11,6 +11,8 @@ In addition to the "common" selectors that match @ngrx/entity selectors from the
 * selectCurrentEntities
 * selectCurrentEntityKey
 * selectCurrentEntitiesKeys
+* selectEditedEntity
+* selectIsDirty
 * selectCurrentPage
 * selectCurrentRange
 * selectTotalPageable
@@ -19,6 +21,7 @@ In addition to the "common" selectors that match @ngrx/entity selectors from the
 * selectIsDeleting
 * selectLoadedAt
 * selectSavedAt
+* selectCreatedAt
 * selectDeletedAt
 {% endhint %}
 

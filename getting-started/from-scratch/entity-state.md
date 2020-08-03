@@ -6,24 +6,21 @@ description: Update the application state interface.
 
 Now that we have the standard initial implementation for NgRX and Auto-Entity in place, we need to wire our models into our state. 
 
-{% code-tabs %}
-{% code-tabs-item title="app.state.ts" %}
+{% code title="app.state.ts" %}
 ```typescript
 // ... imports ...
 import { Customer } from '../models';
 import { customerReducer } from './customer.state.ts'
 
-export interface IAppState {
+export interface AppState {
   customer: IEntityState<Customer>;
 }
-export type AppState = IAppState;
 
 export const appReducer: ActionReducerMap<AppState> = {
   customer: customerReducer
 };
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Note that we have added a new `customer` property to the `IAppState` interface of type `IEntityState<Customer>`, which we imported from `@briebug/ngrx-auto-entity` at the top of the file.
 

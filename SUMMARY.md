@@ -54,11 +54,11 @@
     * [Workflows](advanced/usage/custom-effects/workflows.md)
 * [Leveraging Facades](advanced/leveraging-facades/README.md)
   * [Preparing Facades](advanced/leveraging-facades/preparing.md)
-  * [The Interface: Properties](advanced/leveraging-facades/properties/README.md)
-    * [Using Facade Properties](advanced/leveraging-facades/properties/using.md)
+  * [The Interface: Selections](advanced/leveraging-facades/properties/README.md)
+    * [Using Facade Selections](advanced/leveraging-facades/properties/using.md)
     * [Simplifying Further](advanced/leveraging-facades/properties/simplifying.md)
-  * [The Interface: Methods](advanced/leveraging-facades/methods/README.md)
-    * [Using Facade Methods](advanced/leveraging-facades/methods/using.md)
+  * [The Interface: Activities](advanced/leveraging-facades/methods/README.md)
+    * [Using Facade Activities](advanced/leveraging-facades/methods/using.md)
   * [So Little Code!](advanced/leveraging-facades/so-little-code.md)
 
 ## Examples
@@ -74,7 +74,10 @@
   * [Modal Component](examples/application/modal-component.md)
 
 ## Documentation
+
 * [Reference](documentation/reference.md)
 
 ## Extras
+
 * [Github Link](https://github.com/briebug/ngrx-auto-entity)
+
