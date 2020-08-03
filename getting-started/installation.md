@@ -5,11 +5,11 @@
 To get started, install the package using npm or yarn:
 
 ```text
-npm i @briebug/ngrx-auto-entity@~0.2
+npm i @briebug/ngrx-auto-entity@alpha
 ```
 
 ```text
-yarn add @briebug/ngrx-auto-entity@~0.2
+yarn add @briebug/ngrx-auto-entity@alpha
 ```
 
 ## Requirements
