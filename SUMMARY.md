@@ -60,6 +60,11 @@
   * [The Interface: Activities](advanced/leveraging-facades/methods/README.md)
     * [Using Facade Activities](advanced/leveraging-facades/methods/using.md)
   * [So Little Code!](advanced/leveraging-facades/so-little-code.md)
+* [Utility Functions](advanced/utilities/README.md)
+  * [Prototyping your Entities](advanced/utilities/prototyping-your-entities/README.md)
+    * [Entity Making Performance](advanced/utilities/prototyping-your-entities/entity-making-performance.md)
+  * [Entity Name Utilities](advanced/utilities/entity-name-utilities.md)
+  * [Entity Key Utilities](advanced/utilities/entity-key-utilities.md)
 
 ## Examples
 

@@ -22,7 +22,7 @@ import {firstCustomer, CustomerFacadeBase} from 'state/customer.state';
 import {Customer} from 'models';
 
 export class CustomerFacade extends CustomerFacadeBase {
-    firstCustomer$ = this.store.pipe(select(firstCustomer));
+    firstCustomer$ = this.store.select(firstCustomer);
     
     constructor(store: Store<AppState>) {
         super(Customer, store);
@@ -41,14 +41,14 @@ import {firstCustomer, customerByName, CustomerFacadeBase} from 'state/customer.
 import {Customer} from 'models';
 
 export class CustomerFacade extends CustomerFacadeBase {
-    firstCustomer$ = this.store.pipe(select(firstCustomer));
+    firstCustomer$ = this.store.select(firstCustomer);
 
     constructor(store: Store<AppState>) {
         super(Customer, store);
     }
     
     customerByName$(name: string): Observable<Customer> {
-        return this.store.pipe(select(customerByName, {name});
+        return this.store.select(customerByName, {name});
     }
 }
 ```
