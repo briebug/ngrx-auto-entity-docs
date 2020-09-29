@@ -22,7 +22,7 @@ export class EntityService implements IAutoEntityService<any> {
 
   load(entityInfo: IEntityInfo, id: any, criteria?: any): Observable<any> {
     return this.http.get<any>(
-      `${environment.rootUrl}/${entityInfo.modelName}/${id}`,
+      `${environment.rootUrl}/${entityInfo.uriName}/${id}`,
       {params: criteria ? criteria.query || {} : {}}
     );
   }
@@ -35,14 +35,14 @@ export class EntityService implements IAutoEntityService<any> {
   
   loadMany(entityInfo: IEntityInfo, criteria: any): Observable<any[]> {
     return this.http.get<any[]>(
-      `${environment.rootUrl}/${entityInfo.modelName}`,
+      `${environment.rootUrl}/${entityInfo.uriName}`,
       {params: criteria ? criteria.query || {} : {}}
     );
   }
   
   loadPage(entityInfo: IEntityInfo, page: PageInfo, criteria: any): Observable<any[]> {
     return this.http.get<any[]>(
-      `${environment.rootUrl}/${entityInfo.modelName}`,
+      `${environment.rootUrl}/${entityInfo.uriName}`,
       {params: criteria ? criteria.query || {} : {}}
     ).pipe(
       map(entities => ({ // Must return entities with page info!
@@ -55,28 +55,28 @@ export class EntityService implements IAutoEntityService<any> {
 
   create(entityInfo: IEntityInfo, entity: any): Observable<any> {
     return this.http.post<any>(
-      `${environment.rootUrl}/${entityInfo.modelName}`, 
+      `${environment.rootUrl}/${entityInfo.uriName}`, 
       entity
     );
   }
 
   update(entityInfo: IEntityInfo, entity: any): Observable<any> {
     return this.http.patch<any>(
-      `${environment.rootUrl}/${entityInfo.modelName}/${entity.id}`,
+      `${environment.rootUrl}/${entityInfo.uriName}/${entity.id}`,
        entity
     );
   }
   
   replace(entityInfo: IEntityInfo, entity: any): Observable<any> {
     return this.http.put<any>(
-      `${environment.rootUrl}/${entityInfo.modelName}/${entity.id}`,
+      `${environment.rootUrl}/${entityInfo.uriName}/${entity.id}`,
        entity
     );
   }
 
   delete(entityInfo: IEntityInfo, entity: any): Observable<any> {
     return this.http.delete<any>(
-      `${environment.rootUrl}/${entityInfo.modelName}/${entity.id}`
+      `${environment.rootUrl}/${entityInfo.uriName}/${entity.id}`
     ).pipe(map(() => entity)); // Must return entity with key 
   }
   
@@ -87,12 +87,6 @@ export class EntityService implements IAutoEntityService<any> {
   }
 }
 
-```
-{% endtab %}
-
-{% tab title="services/index.ts" %}
-```typescript
-export * from './entity.service';
 ```
 {% endtab %}
 {% endtabs %}

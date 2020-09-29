@@ -99,12 +99,13 @@ export class CustomersEditFormComponent implements OnChanges, OnInit {
   }
   
   submit() {
-    if (this.form.valid) {
-      this.submitted.emit({
-        ...this.customer,
-        ...this.form.value
-      });
+    if (this.form.invalid) {
+      return;
     }
+    this.submitted.emit({
+      ...this.customer,
+      ...this.form.value
+    });
   }
 }
 ```

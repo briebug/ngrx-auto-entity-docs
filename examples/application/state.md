@@ -16,12 +16,10 @@ import { Customer, Order } from '../models';
 import { customerReducer } from './customer.state';
 import { orderReducer } from './order.state';
 
-export interface IAppState {
+export interface AppState {
     customer: IEntityState<Customer>;
     order: IEntityState<Order>;
 }
-
-export type AppState = IAppState;
 
 export function appReducer: ActionReducerMap<AppState> = {
     customer: customerReducer,
@@ -36,7 +34,10 @@ import { buildState, IEntityState } from '@briebug/ngrx-auto-entity';
 import { createReducer } from '@ngrx/store';
 import { Customer } from 'models';
 
-export const { initialState: customerInitialState, facade: CustomerFacadeBase } = buildState(Customer);
+export const { 
+  initialState: customerInitialState, 
+  facade: CustomerFacadeBase 
+} = buildState(Customer);
 
 export function customerReducer(state = initialState): IEntityState<Customer> {
   return state;
@@ -50,7 +51,29 @@ import { buildState, IEntityState } from '@briebug/ngrx-auto-entity';
 import { createReducer } from '@ngrx/store';
 import { Order } from 'models';
 
-export const { initialState: orderInitialState, facade: OrderFacadeBase } = buildState(Order);
+export const { 
+  initialState: orderInitialState, 
+  facade: OrderFacadeBase 
+} = buildState(Order);
+
+export function orderReducer(state = initialState): IEntityState<Order> {
+  return state;
+}
+```
+{% endtab %}
+
+{% tab title="state/line-item.state.ts" %}
+```typescript
+import { createReducer } from '@ngrx/store';
+import { LineItem } from 'models';
+
+export const { 
+  initialState: orderInitialState, 
+  facade: OrderFacadeBase,
+  selectors: {
+    selectAll: allLineItems
+  }
+} = buildState(Order);
 
 export function orderReducer(state = initialState): IEntityState<Order> {
   return state;
@@ -77,7 +100,7 @@ import { appReducer } from './app.state';
         strictStateImmutability: true,
         strictActionImmutability: true,
         strictStateSerializability: true,
-        strictActionSerializability: true,
+        strictActionSerializability: false,
       },
     }),
     EffectsModule.forRoot([]),
@@ -85,17 +108,6 @@ import { appReducer } from './app.state';
   ]
 })
 export class StateModule {}
-```
-{% endcode %}
-
-### Barrel
-
-{% code title="state/index.ts" %}
-```typescript
-export * from './app.state';
-export * from './customer.state';
-export * from './order.state';
-export * from './state.module';
 ```
 {% endcode %}
 

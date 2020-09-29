@@ -9,9 +9,12 @@ description: Stuff about Things
 {% tabs %}
 {% tab title="models/customer.model.ts" %}
 ```typescript
-import { Key } from '@briebug/ngrx-auto-entity';
-import { Address } from './address.model';
+import { Entity, Key } from '@briebug/ngrx-auto-entity';
 
+@Entity({
+  modelName: 'Customer',
+  uriName: 'customers'
+})
 export class Customer {
     @Key id?: number;
     name: string;
@@ -28,8 +31,13 @@ export class Customer {
 
 {% tab title="models/address.model.ts" %}
 ```typescript
-import { Key } from '@briebug/ngrx-auto-entity';
+import { Entity, Key } from '@briebug/ngrx-auto-entity';
 
+
+@Entity({
+  modelName: 'Address',
+  uriName: 'addresses'
+})
 export class Address {
     @Key id?: number;
     street1: string;
@@ -62,6 +70,11 @@ export enum OrderStatus {
     CLOSED = 'closed'
 }
 
+
+@Entity({
+  modelName: 'Order',
+  uriName: 'orders'
+})
 export class Order {
     @Key id?: number;
     purchaseOrderNo: string;
@@ -83,6 +96,11 @@ export class OrderHistory {
 ```typescript
 import { Key } from '@briebug/ngrx-auto-entity';
 
+
+@Entity({
+  modelName: 'LineItem',
+  uriName: 'line-items'
+})
 export class LineItem {
     @Key orderId: number;
     @Key productId: number;
@@ -92,15 +110,4 @@ export class LineItem {
 ```
 {% endtab %}
 {% endtabs %}
-
-#### Barrel
-
-{% code title="models/index.ts" %}
-```typescript
-export * from './address.model';
-export * from './customer.model';
-export * from './lineItem.model';
-export * from './order.model';
-```
-{% endcode %}
 

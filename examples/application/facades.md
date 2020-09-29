@@ -23,7 +23,7 @@ export class CustomerFacade extends CustomerFacadeBase {
     }
     
     get first$(): Observable<Customer> {
-        return this.store.pipe(select(firstCustomer));
+        return this.store.select(firstCustomer);
     }
     
     get currentOrFirst$(): Observable<Customer> {
@@ -48,14 +48,13 @@ import { Customer } from '../models';
 
 @Injectable({ providedIn: 'root' })
 export class CustomerUIFacade {
-    constructor(private modal: Modal, private customerFacade: CustomerFacade) {
+    constructor(private modals: Modal, private customerFacade: CustomerFacade) {
     }
     
-    edit(customer: Customer): void {
-        const reference = this.modal.show(CustomerEditComponent);
-        reference.dismissed(editedCustomer => {
-          this.customerFacade.save(editedCustomer);
-        });
+    async edit(customer: Customer): Promise<void> {
+        const modal = this.modals.show(CustomerEditComponent);
+        const editedCustomer = await modal.dismissed();
+        this.customerFacade.save(editedCustomer);
     }
 }
 ```
@@ -92,6 +91,12 @@ import { store } from '@ngrx/store';
 import { LineItem } from 'models';
 import { AppState, LineItemFacadeBase } from 'state'
 
+export const lineItemsByOrder = createSelector(
+    allLineItems,
+    (lineItems, {order}) => 
+      lineItems.filter(lineItem => lineItem.orderId === order.id)
+)
+
 @Injectable({ providedIn: 'root' })
 export class LineItemFacade extends LineItemFacadeBase {
     constructor(store: Store<AppState>, private modal: Modal) {
@@ -99,27 +104,17 @@ export class LineItemFacade extends LineItemFacadeBase {
     }
     
     byOrder$(order: Order): Observable<LineItem[]> {
-        return this.all$.pipe(
-            map(lineItems => 
-                lineItems.filter(lineItem => lineItem.orderId === order.id)
-            )
-        );
+        return this.store.select(lineItemsByOrder, {order})
     }
     
     deleteAllForOrder(order: Order): void {
         this.byOrder$(order).pipe(
+            take(1),
             tap(lineItems => this.deleteMany(lineItems))
-        );
+        ).subscribe();
     }
 }
 ```
 {% endtab %}
 {% endtabs %}
-
-{% code title="facades/index.ts" %}
-```typescript
-export * from './customer.facade';
-export * from './customer-ui.facade';
-```
-{% endcode %}
 
