@@ -158,7 +158,7 @@ export class LineItem {
 }
 
 // elsewhere:
-stateNameOfEntit(LineItem); -> 'line-item'
-uriNameOfEntity(makeLineItem(lineItem)); -> 'line-item'
+stateNameOfEntity(LineItem); -> 'lineItem'
+stateNameOfEntity(makeLineItem(lineItem)); -> 'lineItem'
 ```
 

@@ -36,3 +36,5 @@ const typedCustomer = makeCutomer(customer);
 const key = getKeyFromEntity(typedCustomer);
 ```
 
+Conversion of plain objects to entities can be useful for certain designs and usage goals, where having richer entity models and actually using them is important. This new function aims to support such richer models. 
+
