@@ -72,7 +72,9 @@ export class CustomersEditFormComponent implements OnChanges, OnInit {
   
   ngOnInit(): void {
     this.form = this.buildForm(this.builder);
-    this.form.statusChanges.subscribe(() => this.validated.emit(form.valid));
+    this.form.statusChanges.pipe(
+      map(() => this.form.valid)
+    ).subscribe(this.validated.emit);
   }
   
   ngOnChanges(): void {
@@ -102,10 +104,13 @@ export class CustomersEditFormComponent implements OnChanges, OnInit {
     if (this.form.invalid) {
       return;
     }
-    this.submitted.emit({
+    
+    const updatedCustomer = {
       ...this.customer,
       ...this.form.value
-    });
+    };
+    
+    this.submitted.emit(updatedCustomer);
   }
 }
 ```
