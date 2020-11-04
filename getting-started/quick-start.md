@@ -17,13 +17,25 @@ import { NgrxAutoEntityModule } from '@briebug/ngrx-auto-entity';
 @NgModule({
     imports: [
         BrowserModule,
-        StoreModule.forRoot(appReducer, { metaReducers: appMetaReducers }),
+        StoreModule.forRoot(appReducer, { 
+            metaReducers: appMetaReducers,
+            runtimeChecks: { 
+                // Auto
+                strictActionSerializability: false
+            }
+        }),
         EffectsModule.forRoot([]),
         NgrxAutoEntityModule.forRoot() // Add this!
     ]
 })
-export class AppModule {}
+export class AppModule {} 
 ```
+
+{% hint style="warning" %}
+Note the use of `strictActionSerializability` being set to `false` here. This is an important setting with NgRx Auto-Entity. This library uses special actions that reference classes, which are types. Not instances of those classes, which would be objects \(data\), but the classes themselves. Classes, being types, are not serializable, which prevents auto-entity actions from being compatible with strict action serializability in NgRx.
+
+Providing the type allows Auto-Entity to gain rich knowledge about each entity, including any metadata/config you may attach to your entities with the `@Entity` and `@Key` decorators.
+{% endhint %}
 
 ## Step 2: Creating your Model and Entity Service
 
