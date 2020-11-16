@@ -20,7 +20,7 @@ import { NgrxAutoEntityModule } from '@briebug/ngrx-auto-entity';
         StoreModule.forRoot(appReducer, { 
             metaReducers: appMetaReducers,
             runtimeChecks: { 
-                // Auto
+                // Auto-Entity includes classes in its actions:
                 strictActionSerializability: false
             }
         }),
