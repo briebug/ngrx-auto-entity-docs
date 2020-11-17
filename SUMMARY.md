@@ -41,6 +41,7 @@
       * [Loading Entities](advanced/usage/generic-actions/loading/entities.md)
       * [Loading Pages](advanced/usage/generic-actions/loading/pages.md)
       * [Loading Ranges](advanced/usage/generic-actions/loading/ranges.md)
+      * [Optional Loading](advanced/usage/generic-actions/loading/optional-loading.md)
     * [CURD Actions](advanced/usage/generic-actions/curd.md)
     * [Utility Actions](advanced/usage/generic-actions/utility.md)
   * [Common Selectors](advanced/usage/common-selectors/README.md)
