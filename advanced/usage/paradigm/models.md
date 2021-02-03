@@ -24,14 +24,13 @@ Due to the dynamic nature of how NgRX Auto-Entity works, interfaces are insuffic
 {% code title="src/app/models/customer.ts" %}
 ```typescript
 import {Entity, Key} from '@briebug/ngrx-auto-entity';
-import {ObjectId} from 'types';
 
 @Entity({
     modelName: 'Customer',
     uriName: 'customers'
 })
 export class Customer {
-    @Key id: ObjectId;
+    @Key id: string;
     name: string;
 }
 ```
@@ -52,11 +51,10 @@ A simple but common example of a composite key might be something along the line
 {% code title="src/app/models/lineItem.ts" %}
 ```typescript
 import {Key} from '@briebug/ngrx-auto-entity';
-import {ObjectId} from 'types';
 
 export class LineItem {
-    @Key orderId: ObjectId;
-    @Key productId: ObjectId;
+    @Key orderId: string;
+    @Key productId: string;
     quantity: number;
 }
 ```
