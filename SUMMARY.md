@@ -28,6 +28,9 @@
     * [Service Providers](advanced/usage/paradigm/providers.md)
   * [Taking Control](advanced/usage/taking-control/README.md)
     * [Integrating Custom Effects](advanced/usage/taking-control/custom-effects.md)
+  * [Building Your Entities](advanced/usage/building-your-entities/README.md)
+    * [Entity Names](advanced/usage/building-your-entities/entity-names.md)
+    * [Sort Comparers](advanced/usage/building-your-entities/sort-comparers.md)
   * [Building Your Entity States](advanced/usage/building-state/README.md)
     * [The buildState\(\) function](advanced/usage/building-state/buildstate-func.md)
     * [The buildFeatureState\(\) function](advanced/usage/building-state/buildfeaturestate-func.md)
@@ -67,6 +70,7 @@
     * [Entity Making Performance](advanced/utilities/prototyping-your-entities/entity-making-performance.md)
   * [Entity Name Utilities](advanced/utilities/entity-name-utilities.md)
   * [Entity Key Utilities](advanced/utilities/entity-key-utilities.md)
+  * [Entity Comparers](advanced/utilities/entity-comparers.md)
 
 ## Examples
 
