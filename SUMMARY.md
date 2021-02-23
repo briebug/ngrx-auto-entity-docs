@@ -31,6 +31,7 @@
   * [Building Your Entities](advanced/usage/building-your-entities/README.md)
     * [Entity Names](advanced/usage/building-your-entities/entity-names.md)
     * [Sort Comparers](advanced/usage/building-your-entities/sort-comparers.md)
+    * [Data Transforms](advanced/usage/building-your-entities/data-transforms.md)
   * [Building Your Entity States](advanced/usage/building-state/README.md)
     * [The buildState\(\) function](advanced/usage/building-state/buildstate-func.md)
     * [The buildFeatureState\(\) function](advanced/usage/building-state/buildfeaturestate-func.md)
