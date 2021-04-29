@@ -46,8 +46,12 @@ Before you can actually create your state, you will need to create your entity m
 {% tabs %}
 {% tab title="models/customer.model.ts" %}
 ```typescript
-import { Key } from '@briebug/ngrx-auto-entity';
+import { Entity, Key } from '@briebug/ngrx-auto-entity';
 
+@Entity({
+  modelName: 'Customer',
+  uriName: 'customers'
+})
 export class Customer {
     @Key id: number;
     name: string;
